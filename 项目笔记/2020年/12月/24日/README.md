@@ -178,3 +178,99 @@ app.use("/api/sample", require("./routes/api/sample"));
 数据库服务器都没有安装一定不会好使。
 
 明天考虑安装个数据库服务器试试。
+
+# 数据库服务器的安装
+
+## 任意创建一个目录，并进入
+
+假设目录名为:test
+
+## 创建编排文件(docker-compose.yml)
+
+```yaml
+version: '3.1'
+services:
+    # 第一个服务是数据库服务
+    quan-postgresql:
+      container_name: quan-postgresql
+      # 采用的docker image为postgres最新版
+      image: postgres:latest
+      restart: always
+      environment:
+      # 以下环境变量表示的是数据库的访问密码
+        POSTGRES_PASSWORD: 'docker'           
+      ports:
+      # 内部端口不变映射到docker容器外部，这是数据库的服务端口
+        - 5432:5432
+      volumes:
+      # 文件卷映射:当前目录下的databasefile目录，映射到容器内部的/var/lib/postgresql/data
+        - ./databasefile:/var/lib/postgresql/data
+    # 第2个服务是数据库管理界面
+    quan-db-manager:
+      container_name: quan-db-manager
+      image: dpage/pgadmin4:latest
+      restart: always
+      environment:     
+        # 以下环境变量表示数据库管理者的用户名
+        PGADMIN_DEFAULT_EMAIL: 'reechand@cust.edu.cn'
+        # 以下环境变量表示数据库管理程序的密码
+        # 因为一个管理程序可以管理多台数据服务器(所以管理程序的账号独立于数据库服务器的账号)
+        PGADMIN_DEFAULT_PASSWORD: 'test1234'
+        # 以下三个环境变量是照葫芦画瓢粘贴过来的(啥意思我也不懂
+        PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION: 'True'
+        PGADMIN_CONFIG_LOGIN_BANNER: '"Authorised users only!"'
+        PGADMIN_CONFIG_CONSOLE_LOG_LEVEL: '10'
+      ports:
+      # 这是使用浏览器访问的端口:我们把80端口转过来
+      # 因为数据库服务在5432上面，所以管理端口就设计成5433(二者相邻)
+        - 5433:80
+```
+
+## 启动服务
+
+启动命令有两个，尝试版本和开发版本。
+
+### 尝试版本的启动
+
+```bash
+docker-compose up
+```
+
+会有很多输出信息，专门用于除错。如果没问题的话，就用开发版本的启动。
+
+### 开发版本的启动
+
+```bash
+docker-compose up -D
+```
+
+输出信息很少。-D是daemon的缩写。
+
+## 使用我们安装的服务
+
+### 浏览器访问
+
+```bash
+http://192.168.138.7:5433/
+```
+
+我的docker运行于192.168.138.7。你的有可能是127.0.0.。自己根据情况定。
+
+### 登录数据库管理程序
+
+使用以上账号
+
+`reechand@cust.edu.cn`和`test1234`登录数据库管理程序。
+
+### 让管理程序能够管上我们的数据库服务器
+
+通过add server把数据库服务器的登录信息添加进去。
+
+![1608791605563](1608791605563.png)
+
+### 效果如下
+
+因为我们的数据库服务器起名为dbs，所以效果如下
+
+![1608791699234](1608791699234.png)
+
