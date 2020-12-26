@@ -283,6 +283,16 @@ mdlUser.sync({force: true}).then(
 )
 ```
 
+上面是一种办法，还有一种办法是：
+
+```typescript
+(async () => {
+    await objSeq.sync({ force: true });
+    // 这里是代码
+    console.log("已经修改了数据库中现有结构信息2");
+})();
+```
+
 
 
 ### 典型的同步参数
@@ -296,4 +306,342 @@ mdlUser.sync({force: true}).then(
 可以调用`Sequelize.sync()`来自动同步所有模型
 
 参数同上。
+
+# 今日代码
+
+## 连接数据库(seqdb/SequelizeCreator.ts)
+
+```typescript
+import {Dialect,Sequelize} from 'sequelize';
+
+export class DBConfigBase {
+    //1.这个负责提供连接数据库所必须的主机名
+    protected getHostName(): string {
+        return process.env.DB_HOST || "localhost";
+    }
+
+    //2.这个负责提供连接数据库必须的端口号
+    protected getPort(): number {
+        return 5432;
+    }
+
+    //3.这个负责提供连接数据库必须的用户名
+    protected getUserName(): string {
+        return process.env.DB_USER || "postgres";
+    }
+
+    //4.这个负责提供连接数据库必须的密码
+    protected getPassword(): string {
+        return process.env.DB_PWD || "docker";
+    }
+
+    //5.这个负责提供链接数据库所必须的库名(因为一台数据库服务器上存在多个数据库)
+    protected getDatabaseName(): string {
+        return process.env.DB_NAME || "cmgd2";
+    }
+
+    //6.数据库类型
+    protected getDialect(): Dialect {
+        return "postgres";
+    }
+
+    //以上六个信息是主要信息
+    public getConfig(): Object {
+        return {
+            //以下六个信息是主要信息(目前允许使用者定制)
+            host: this.getHostName(),
+            port: this.getPort(),
+            user: this.getUserName(),
+            password: this.getPassword(),
+            database: this.getDatabaseName(),
+            dialect: this.getDialect()
+        }
+    }
+
+    //以下信息是调试用的，用来显示连接器所使用的信息
+    public showConfig(): void {
+        console.log(this.getConfig());
+    }
+
+    //以下方法用来创建Sequelize对象
+    public CreateSequelize(): Sequelize {
+        var result: Sequelize = new Sequelize(//
+            this.getDatabaseName(), this.getUserName(), this.getPassword(),//
+            {
+                host: this.getHostName(),
+                port: this.getPort(),
+                dialect: this.getDialect(),
+                define: {
+                    //freezeTableName: 默认为false。
+                    // 当为false时，如果你数据库中已有表a的话，sequelize会修改你的表名。
+                    // 我测试的结果是帮我的表名"a" 加了个s，导致我查询表a的数据时，总会报不存在该表。
+                    freezeTableName: true,
+                    //timestamps: 默认为true。
+                    // 它会为你的表添加两个额外的字段“createdAt”、"updatedAt"。
+                    timestamps:true
+                }
+            }
+            );
+        return result;
+    }
+
+    private static fSingletonInstance:Sequelize=null;
+    //以下方法用来创建单态的Sequelize对象
+    public getSingletonSequelize(): Sequelize {
+        if (DBConfigBase.fSingletonInstance==null)
+        {
+            DBConfigBase.fSingletonInstance=this.CreateSequelize();
+        }
+        return DBConfigBase.fSingletonInstance;
+    }
+}
+
+//何飞个人的数据库配置信息
+export class DBConfigOfHefei extends DBConfigBase {
+    //1.我架设的数据库服务器不在本机，而在192.168.138.7上面,所以覆盖基类中的定义
+    protected getHostName(): string {
+        return "192.168.138.7"
+    }
+
+    //5.这个负责提供链接数据库所必须的库名(因为一台数据库服务器上存在多个数据库)
+    protected getDatabaseName(): string {
+        return "postgres";
+    }
+}
+
+//万全个人的数据库配置信息(根据自己的需要修改即可)
+export class DBConfigOfWanquan extends DBConfigBase {
+    //1.一般是本机：根据具体情况自己修改
+    protected getHostName(): string {
+        return "127.0.0.1"
+    }
+
+    //2.这个负责提供连接数据库必须的端口号
+    protected getPort(): number {
+        return 5432;
+    }
+
+    //3.这个负责提供连接数据库必须的用户名
+    protected getUserName(): string {
+        return process.env.DB_USER || "postgres";
+    }
+
+    //4.这个负责提供连接数据库必须的密码
+    protected getPassword(): string {
+        return process.env.DB_PWD || "docker";
+    }
+
+    //5.这个负责提供链接数据库所必须的库名(因为一台数据库服务器上存在多个数据库)
+    protected getDatabaseName(): string {
+        return "postgres";
+    }
+}
+
+//如果是何飞使用的话，请保留下面一行
+export var DefaultConfig:any=DBConfigOfHefei;
+//向外部提供万全自己的数据库配置信息
+//export var DefaultConfig:any=DBConfigOfWanquan;
+
+```
+
+## 三个实体表
+
+### 研究(seqdb/models/Study.ts)
+
+```typescript
+import {DBConfigOfHefei} from "../SequelizeCreator"
+import {Model, DataTypes, Sequelize} from "sequelize"
+
+//全局唯一的数据库连接
+const objSeq: Sequelize = new DBConfigOfHefei().getSingletonSequelize();
+
+//将来还需要在模型的基础上扩展出各自不同的方法来
+export class Study extends Model {
+}
+
+Study.init(
+    {
+        study_name: DataTypes.STRING
+    },
+    {
+        sequelize: objSeq//,        modelName: 'User'
+    }
+);
+
+
+export async function init() {
+    console.log("开始重建表study");
+    await Study.sync({force: true});
+    console.log("Study表重建完毕");
+    console.log("--------------------------------------------------------------------------------")
+}
+```
+
+### 每次研究会产生的样本(seqdb/models/Sample.ts)
+
+```typescript
+import {DBConfigOfHefei} from "../SequelizeCreator"
+import {Model, DataTypes, Sequelize} from "sequelize"
+import {Study} from "./Study"
+
+//全局唯一的数据库连接
+const objSeq: Sequelize = new DBConfigOfHefei().getSingletonSequelize();
+
+//将来还需要在模型的基础上扩展出各自不同的方法来
+export class Sample extends Model {
+}
+
+Sample.init(
+    {
+        //此处定义了样本的公共列(所谓的公共列，就是每个样本都有的列,公共列相对于专有列而言)
+        sample_id: DataTypes.STRING
+    },
+    {
+        sequelize: objSeq//,        modelName: 'User'
+    }
+);
+
+export async function init() {
+    console.log("开始重建表Sample");
+    await Sample.sync({force: true});
+    console.log("Sample表重建完毕");
+    console.log("--------------------------------------------------------------------------------")
+}
+```
+
+### 每批次样本会有很多列(seqdb/models/Variable.ts)
+
+相同批次的样本会共享这些列的列名以及数据类型。
+
+```typescript
+import {DBConfigOfHefei} from "../SequelizeCreator"
+import {Model, DataTypes, Sequelize} from "sequelize"
+
+//全局唯一的数据库连接
+const objSeq: Sequelize = new DBConfigOfHefei().getSingletonSequelize();
+
+//将来还需要在模型的基础上扩展出各自不同的方法来
+export class Variable extends Model {
+}
+
+Variable.init(
+    {
+        //此处定义了样本的专有列(专有列是指这个列只属于某类样本专有，并不是所有样本都有)
+        //列名
+        name: DataTypes.STRING,
+        //类型缩写
+        type:DataTypes.CHAR
+    },
+    {
+        sequelize: objSeq//,        modelName: 'User'
+    }
+);
+
+
+export async function init() {
+    console.log("开始重建表Variable");
+    await Variable.sync({force: true});
+    console.log("Variable表重建完毕");
+    console.log("--------------------------------------------------------------------------------")
+}
+
+```
+
+一个关联表(seqdb/models/Sample_variable.ts)
+
+每一个具体的样本都会存在很多列。
+
+```typescript
+import {DBConfigOfHefei} from "../SequelizeCreator"
+import {Model, DataTypes, Sequelize} from "sequelize"
+import {Sample} from "./Sample";
+import {Variable} from "./Variable";
+
+//全局唯一的数据库连接
+const objSeq: Sequelize = new DBConfigOfHefei().getSingletonSequelize();
+
+//将来还需要在模型的基础上扩展出各自不同的方法来
+export class Sample_Variable extends Model {
+}
+
+Sample_Variable.init(
+    {
+        //样本ID
+        sample_id: {
+            type: DataTypes.INTEGER,
+            references: {
+                model: Sample,
+                key: 'id'
+            }
+        },
+        //专有列的ID
+        variable_id: {
+            type: DataTypes.INTEGER,
+            references: {
+                model: Variable,
+                key: 'id'
+            }
+        },
+        //列的值(数值)
+        num_val:{
+            type: DataTypes.REAL,
+            allowNull:true
+        },
+        //列的值(字符串)
+        str_val:{
+            type: DataTypes.STRING,
+            allowNull:false,
+            defaultValue:"" //默认是长度为零的串
+        },
+        //列的值(真假)
+        bln_val:{
+            type: DataTypes.BOOLEAN,
+            allowNull:true
+        }
+    },
+    {
+        sequelize: objSeq//,        modelName: 'User'
+    }
+);
+
+
+export async function init() {
+    console.log("开始重建表Sample_Variable");
+    await Sample_Variable.sync({force: true});
+    console.log("Sample_Variable表重建完毕");
+    console.log("--------------------------------------------------------------------------------")
+}
+```
+
+## 建表脚本(seqdb/Models.ts)
+
+这个功能单独放在一个文件中，主要目的是：测试一下，很多的异步操作，我们同步来完成，是不是可行。
+
+通过使用`await`和`async`两个关键字，真的能够把异步操作，改成同步的形式。
+
+从而保证有序初始化。
+
+```typescript
+import * as sample from "./models/Sample"
+import * as study from "./models/Study"
+import * as variable from "./models/Variable"
+import * as sv from "./models/Sample_variable"
+
+//每次研究会产生多个样本
+study.Study.hasMany(sample.Sample);
+//一个样本有多个列
+sample.Sample.belongsToMany(variable.Variable, { through: 'Sample_variable' });
+//同一个列被相同类型的样本重用
+variable.Variable.belongsToMany(sample.Sample, { through: 'Sample_variable' });
+
+//初始化(暂且如此写...将来可能变化)
+async function init(){
+    await study.init();
+    await sample.init();
+    await variable.init();
+    await sv.init();
+}
+
+init();
+```
 
