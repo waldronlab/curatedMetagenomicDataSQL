@@ -8,6 +8,10 @@
 
 [https://www.cnblogs.com/renxiao1218/p/9531512.html](https://www.cnblogs.com/renxiao1218/p/9531512.html)
 
+[入门](https://semlinker.com/node-sequelize-quickstart/)
+
+[数据对象之间的一一对应关系如何提现](http://semlinker.com/node-sequelize-1v1/)
+
 ## 必须要的包
 
 ```
