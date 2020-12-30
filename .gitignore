@@ -2,3 +2,4 @@
 /programs/.idea
 /programs/node_modules
 /programs/package-lock.json
+/programs/logs

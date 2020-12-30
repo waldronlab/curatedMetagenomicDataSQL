@@ -12,5 +12,8 @@
   "dependencies": {
     "@types/node": "^14.14.16",
     "log4js": "^6.3.0"
+  },
+  "devDependencies": {
+    "npm-cli": "^0.1.0"
   }
 }
