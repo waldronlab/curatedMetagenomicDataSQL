@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "1": " echo '测试1:显示配置信息' &&cd config && node configDefault.js",
+    "2": " echo '测试2:日志功能测试' &&cd log && node logger.js"
   },
   "keywords": [],
   "author": "",
