@@ -6,6 +6,10 @@ export class ConfigOfHFHome extends ConfigBase {
     public getStudiesDir(): string {
         return "E:\\万全\\甲方提供\\3.数据和模式\\inst\\curated";
     }
+    //template.csv
+    public getFieldDefineCSV(): string {
+        return "E:\\万全\\甲方提供\\3.数据和模式\\inst\\extdata\\template.csv";
+    }
 }
 
 //初始化

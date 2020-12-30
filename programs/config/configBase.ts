@@ -6,6 +6,11 @@ export class ConfigBase {
         throw new Error("导入数据的目录必须设置");
     }
 
+    //template.csv
+    public getFieldDefineCSV(): string {
+        throw new Error("字段定义文件必须设置");
+    }
+
     //为了调试而显示信息
     public show4debug() {
         console.log("当前配置信息："+this.constructor.name);
@@ -15,12 +20,23 @@ export class ConfigBase {
     //检测运行环境是否满足当前配置
     public checkEnv(): boolean {
         var result: boolean = true;
-        //先判断存放研究数据的目录是否存在
+        //1.先判断存放研究数据的目录是否存在
         if (result) {
             try
             {
                 let stat = fs.statSync(this.getStudiesDir());
                 result = stat.isDirectory();
+            }
+            catch {
+                result=false;
+            }
+        }
+        //2.判断字段定义文件是否存在
+        if (result) {
+            try
+            {
+                let stat = fs.statSync(this.getFieldDefineCSV());
+                result = stat.isFile();
             }
             catch {
                 result=false;

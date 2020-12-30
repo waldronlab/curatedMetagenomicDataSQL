@@ -1,0 +1,33 @@
+//我们先定义一个文本文件处理器
+import * as fs from "fs";
+require ("../config/configDefault");
+import {defaultConfig} from "../config/configBase";
+
+
+export class TxtFileProcessor {
+    protected filePath: string;
+
+    //构造函数
+    constructor(txtFilePath:string) {
+        this.filePath = txtFilePath;
+    }
+
+    //模板函数
+    protected processFileContent(allTxt: string):boolean{
+        console.log("文件:"+this.filePath);
+        console.log("长度:"+allTxt.length);
+        return true;
+    }
+
+    //处理
+    public process(): boolean {
+        let allTxt: string = fs.readFileSync(this.filePath).toString();
+        return this.processFileContent(allTxt);
+    }
+}
+
+//单元测试代码
+if (module===require.main){
+    let obj:TxtFileProcessor=new TxtFileProcessor(defaultConfig.getFieldDefineCSV());
+    obj.process();
+}
