@@ -6,7 +6,9 @@ import {seq} from "./connect"
 import {DataTypes} from "sequelize"
 
 async function CreateTable(tableName: string, fieldsName: string[]) {
+    //ft是字段类型的缩写
     let ft=DataTypes.STRING;
+    //fs是fields的缩写
     let fs:any="fs={";
     for (let index:number=0;index<fieldsName.length;index++)
     {
