@@ -2,21 +2,21 @@
 import {ConfigBase, setCurrentConfig, defaultConfig}  from "./configBase";
 import * as assert from "assert";
 
-export class ConfigOfHFOffice extends ConfigBase {
+export class ConfigOfHFHome extends ConfigBase {
     public getStudiesDir(): string {
-        return "G:\\git代码仓库大全\\data4import\\inst\\curated";
+        return "E:\\万全\\甲方提供\\3.数据和模式\\inst\\curated";
     }
 }
 
 //初始化
-const current: ConfigBase = new ConfigOfHFOffice();
+const current: ConfigBase = new ConfigOfHFHome();
 if (current.checkEnv()) {
     setCurrentConfig(current);
 }
 
 //单元测试
 if (module === require.main) {
-    const c: ConfigBase = new ConfigOfHFOffice()
+    const c: ConfigBase = new ConfigOfHFHome()
     c.show4debug();
     if (c.checkEnv()) {
         console.log("这个配置文件符合当前环境");

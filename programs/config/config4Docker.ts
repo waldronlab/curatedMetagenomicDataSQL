@@ -1,4 +1,4 @@
-import {ConfigBase, defaultConfig, setCurrentConfig} from "./configDefault"
+import {ConfigBase, defaultConfig, setCurrentConfig}  from "./configBase";
 import * as assert from "assert";
 
 //docker内运行的配置，用于发布产品
