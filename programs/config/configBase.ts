@@ -2,6 +2,7 @@
 import * as fs from "fs";
 import {Dialect,Options, Sequelize} from 'sequelize';
 import {connect} from "../SequelizeDB/connect";
+import {log} from "../log/logger"
 
 export class ConfigBase {
     public getStudiesDir(): string {
@@ -43,7 +44,7 @@ export class ConfigBase {
 
     //5.这个负责提供链接数据库所必须的库名(因为一台数据库服务器上存在多个数据库)
     protected getPostgresDatabaseName(): string {
-        return process.env.DB_NAME || "postgres";
+        return process.env.DB_NAME || "tsv";
     }
 
     //6.数据库类型
@@ -60,6 +61,10 @@ export class ConfigBase {
             database: this.getPostgresDatabaseName(),
             username: this.getPostgresUserName(),
             password: this.getPostgresPassword(),
+            logging: function(sql) {
+                log.info(sql);
+            }
+
         };
         return result;
     }
