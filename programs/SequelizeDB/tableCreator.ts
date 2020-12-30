@@ -31,9 +31,11 @@ async function unitTest(){
     {
         let fs:Array<string>=[];
         for (let c=1;c<1598;c++){
-            fs.push(c.toString());
+            fs.push("f"+c);
         }
-        await CreateTable("test"+t, fs);
+        let tmp=await CreateTable("test"+t, fs);
+        //尝试插入数据
+        tmp.create({f1:'xxx',f2:'yyy',f3:'zzz'});
     }
 }
 
