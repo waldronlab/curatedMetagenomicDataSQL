@@ -8,7 +8,7 @@ export class ConfigBase {
 
     //为了调试而显示信息
     public show4debug() {
-        console.log("当前配置信息：");
+        console.log("当前配置信息："+this.constructor.name);
         console.log("\t1.研究工程目录=" + this.getStudiesDir());
     };
 
