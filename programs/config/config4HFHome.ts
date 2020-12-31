@@ -1,6 +1,6 @@
 //何飞的办公室的配置，用于开发调试
-import {ConfigBase, setCurrentConfig, defaultConfig}  from "./configBase";
-import * as assert from "assert";
+import {ConfigBase}  from "./configBase";
+import {log} from "../log/logger";
 
 export class ConfigOfHFHome extends ConfigBase {
     public getStudiesDir(): string {
@@ -13,19 +13,16 @@ export class ConfigOfHFHome extends ConfigBase {
 }
 
 //初始化
-const current: ConfigBase = new ConfigOfHFHome();
-if (current.checkEnv()) {
-    setCurrentConfig(current);
-}
+new ConfigOfHFHome().checkEnv();
+
 
 //单元测试
 if (module === require.main) {
     const c: ConfigBase = new ConfigOfHFHome()
     c.show4debug();
     if (c.checkEnv()) {
-        console.log("这个配置文件符合当前环境");
+        log.log("这个配置文件符合当前环境");
     } else {
-        console.log("这个配置文件不符合当前环境");
+        log.error("这个配置文件不符合当前环境");
     }
-    assert(defaultConfig === current);
 }

@@ -6,12 +6,14 @@ import {log} from "../log/logger"
 
 export class ConfigBase {
     public getStudiesDir(): string {
-        throw new Error("导入数据的目录必须设置");
+        log.error("每次研究一个工程的数据的目录必须设置");
+        throw new Error();
     }
 
     //template.csv
     public getFieldDefineCSV(): string {
-        throw new Error("字段定义文件必须设置");
+        log.error("字段定义文件:template.csv必须设置");
+        throw new Error("");
     }
 
     //为了调试而显示信息
@@ -97,14 +99,14 @@ export class ConfigBase {
         //3.判断连接信息是否正确
         if (result) {
             result=connect(this.getSequelizeOptions());
+        };
+        //4.最后保存
+        if(result){
+            defaultConfig=this;
         }
         return result;
     };
 }
 
 //默认的配置
-export var defaultConfig: ConfigBase = new ConfigBase();
-
-export function setCurrentConfig(current: ConfigBase): void {
-    defaultConfig = current;
-}
+export var defaultConfig: ConfigBase = null;

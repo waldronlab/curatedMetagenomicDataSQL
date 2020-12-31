@@ -1,5 +1,5 @@
-import {ConfigBase, defaultConfig, setCurrentConfig}  from "./configBase";
-import * as assert from "assert";
+import {ConfigBase}  from "./configBase";
+import {log} from "../log/logger";
 
 //docker内运行的配置，用于发布产品
 export class ConfigOfDocker extends ConfigBase {
@@ -9,19 +9,15 @@ export class ConfigOfDocker extends ConfigBase {
 }
 
 //初始化
-const current: ConfigBase = new ConfigOfDocker();
-if (current.checkEnv()) {
-    setCurrentConfig(current);
-}
+new ConfigOfDocker().checkEnv();
 
 //单元测试
 if (module === require.main) {
     const c: ConfigBase = new ConfigOfDocker()
     c.show4debug();
     if (c.checkEnv()) {
-        console.log("这个配置文件符合当前环境");
+        log.log("这个配置文件符合当前环境");
     } else {
-        console.log("这个配置文件不符合当前环境");
+        log.error("这个配置文件不符合当前环境");
     }
-    assert(defaultConfig === current);
 }
