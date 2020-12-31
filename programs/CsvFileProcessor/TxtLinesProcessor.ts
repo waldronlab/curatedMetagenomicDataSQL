@@ -1,6 +1,7 @@
 //这是一个多行文本文件处理程序
 import {TxtFileProcessor} from "./TxtFileProcessor";
 import {defaultConfig} from "../config/configBase";
+import {log} from "../log/logger"
 
 export class TxtLinesProcessor extends TxtFileProcessor {
 
@@ -17,8 +18,8 @@ export class TxtLinesProcessor extends TxtFileProcessor {
 
     //文本行处理函数
     protected processLine(lineContent: string,lineIndex: number,lineCount:number): boolean {
-        console.log("第"+lineIndex+"行:");
-        console.log(lineContent);
+        log.log("第"+lineIndex+"行:");
+        log.log(lineContent);
         return true;
     }
 }

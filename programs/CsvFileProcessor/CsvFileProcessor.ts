@@ -2,6 +2,7 @@
 import {TxtLinesProcessor} from "./TxtLinesProcessor";
 import {TxtFileProcessor} from "./TxtFileProcessor";
 import {defaultConfig} from "../config/configBase";
+import {log} from "../log/logger"
 
 export class CsvFileProcessor extends TxtLinesProcessor {
     //字段之间的分隔符
@@ -31,9 +32,9 @@ export class CsvFileProcessor extends TxtLinesProcessor {
 
     //处理字段值
     protected processFieldValue(fieldValue: string, columnIndex: number, columnCount: number, lineIndex: number, lineCount: number) {
-        console.log("行:"+lineIndex+"/"+lineCount);
-        console.log("列:"+columnIndex+"/"+columnCount);
-        console.log("值:"+fieldValue);
+        log.log("行:"+lineIndex+"/"+lineCount);
+        log.log("列:"+columnIndex+"/"+columnCount);
+        log.log("值:"+fieldValue);
         return true;
     }
 }

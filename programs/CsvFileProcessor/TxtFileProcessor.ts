@@ -2,6 +2,7 @@
 import * as fs from "fs";
 require ("../config/configDefault");
 import {defaultConfig} from "../config/configBase";
+import {log} from "../log/logger"
 
 
 export class TxtFileProcessor {
@@ -14,8 +15,8 @@ export class TxtFileProcessor {
 
     //模板函数
     protected processFileContent(allTxt: string):boolean{
-        console.log("文件:"+this.filePath);
-        console.log("长度:"+allTxt.length);
+        log.log("文件:"+this.filePath);
+        log.log("长度:"+allTxt.length);
         return true;
     }
 
