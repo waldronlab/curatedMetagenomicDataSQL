@@ -14,16 +14,16 @@ export class TxtFileProcessor {
     }
 
     //模板函数
-    protected processFileContent(allTxt: string):boolean{
+    protected async processFileContent(allTxt: string){
         log.log("文件:"+this.filePath);
         log.log("长度:"+allTxt.length);
         return true;
     }
 
     //处理
-    public process(): boolean {
+    public async process() {
         let allTxt: string = fs.readFileSync(this.filePath).toString();
-        return this.processFileContent(allTxt);
+        return await this.processFileContent(allTxt);
     }
 }
 
