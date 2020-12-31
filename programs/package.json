@@ -12,7 +12,9 @@
     "7": " echo '测试7:动态建表模块功能测试' &&cd SequelizeDB && node tableCreator.js",
     "8": " echo '测试8:研究枚举测试' &&cd CsvFileProcessor && node studiesEnumerator.js",
     "9": " echo '测试:研究的TSV文件枚举测试' &&cd CsvFileProcessor && node importerV1.js",
-    "a": " echo '测试:导入研究的名字' &&cd CsvFileProcessor && node importerV2.js",
+    "a": " echo '测试:导入study的名字' &&cd CsvFileProcessor && node importerV2.js",
+    "b": " echo '测试:导入字段类型' &&cd CsvFileProcessor && node csvFileImporter.js",
+    "c": " echo '测试:导入所有研究' &&cd CsvFileProcessor && node importerV3.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
