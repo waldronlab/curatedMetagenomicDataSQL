@@ -8,7 +8,7 @@ export class TxtLinesProcessor extends TxtFileProcessor {
     protected async processFileContent(allTxt: string) {
         const lines: string[] = allTxt.split("\n");
         let result: boolean = true;
-        for (let lineIndex: number = 1; lineIndex < lines.length; lineIndex++) {
+        for (let lineIndex: number = 0; lineIndex < lines.length; lineIndex++) {
             result = result && await this.processLine(lines[lineIndex], lineIndex, lines.length);
         }
         return result;
