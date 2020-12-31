@@ -4,7 +4,7 @@ import {log} from "../log/logger";
 import * as path from "path";
 import * as fs from "fs";
 
-export class importorV1 extends StudiesEnumerator {
+export class importerV1 extends StudiesEnumerator {
     //这个方法用来预检研究/工程对应的tsv文件是否存在
     protected async processProject(dir: string, name: string, index: number) {
         log.info(index);
@@ -17,7 +17,7 @@ export class importorV1 extends StudiesEnumerator {
             const stat: fs.Stats = fs.statSync(metaDataFilePath);
             //不是文件则报错
             if (!stat.isFile()) {
-                throw new Error("元数据文件缺失:" + metaDataFilePath);
+                log.error("元数据文件缺失:" + metaDataFilePath);
             }
 
             ////
@@ -33,6 +33,6 @@ export class importorV1 extends StudiesEnumerator {
 
 //单元测试
 if (module === require.main) {
-    const test: StudiesEnumerator = new importorV1();
+    const test: StudiesEnumerator = new importerV1();
     test.enumerate();
 }

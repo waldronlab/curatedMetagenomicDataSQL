@@ -1,10 +1,10 @@
-import {importorV1} from "./importorV1";
+import {importerV1} from "./importerV1";
 import {CreateTable} from "../SequelizeDB/tableCreator"
 import {log} from "../log/logger";
 import {StudiesEnumerator} from "./studiesEnumerator";
 
 //导入器
-export class importorV2 extends importorV1 {
+export class importerV2 extends importerV1 {
     //目前这个导入器实现了研究名称的入库
     tableCreated: boolean;
 
@@ -32,6 +32,7 @@ export class importorV2 extends importorV1 {
 
 //单元测试
 if (module === require.main) {
-    const test: StudiesEnumerator = new importorV2();
+    const test: StudiesEnumerator = new importerV2();
     test.enumerate();
+    log.info("导入完毕")
 }
