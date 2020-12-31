@@ -25,6 +25,7 @@ export class importerV2 extends importerV1 {
 
     //这个方法用来预检研究/工程对应的tsv文件是否存在
     protected async processProject(dir: string, name: string, index: number) {
+        console.log(index+":"+name);
         await super.processProject(dir,name,index);
         await this.saveStudy(name);
     }
