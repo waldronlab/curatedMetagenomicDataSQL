@@ -6,6 +6,10 @@ export class ConfigOfDocker extends ConfigBase {
     public getStudiesDir(): string {
         return "/data/4import/inst/curated";
     }
+    //template.csv
+    public getFieldDefineCSV(): string {
+        return "/data/4import/inst/extdata/template.csv";
+    }
 }
 
 //初始化
