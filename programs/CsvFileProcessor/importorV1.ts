@@ -4,8 +4,8 @@ import {log} from "../log/logger";
 import * as path from "path";
 import * as fs from "fs";
 
-export class tsvOfStudiesEnumerator extends StudiesEnumerator {
-    //这个方法用来处理工程/研究,目前只是简单的把它显示出来了而已
+export class importorV1 extends StudiesEnumerator {
+    //这个方法用来预检研究/工程对应的tsv文件是否存在
     protected async processProject(dir: string, name: string, index: number) {
         log.info(index);
         log.info(dir);
@@ -33,6 +33,6 @@ export class tsvOfStudiesEnumerator extends StudiesEnumerator {
 
 //单元测试
 if (module === require.main) {
-    const test: StudiesEnumerator = new tsvOfStudiesEnumerator();
+    const test: StudiesEnumerator = new importorV1();
     test.enumerate();
 }
