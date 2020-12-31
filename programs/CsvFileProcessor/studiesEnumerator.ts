@@ -7,7 +7,7 @@ require("../config/configDefault");
 import {log} from "../log/logger"
 
 //因为每个目录都是一个工程,或者叫做一个研究study
-class StudiesEnumerator {
+export class StudiesEnumerator {
     //这个方法用来处理工程/研究,目前只是简单的把它显示出来了而已
     protected async processProject(dir: string, name: string, index: number) {
         log.info(index);

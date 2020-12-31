@@ -11,6 +11,7 @@
     "6": " echo '测试6:数据库连接模块功能测试' &&cd SequelizeDB && node connect.js",
     "7": " echo '测试7:动态建表模块功能测试' &&cd SequelizeDB && node tableCreator.js",
     "8": " echo '测试8:研究枚举测试' &&cd CsvFileProcessor && node studiesEnumerator.js",
+    "9": " echo '测试:研究的TSV文件枚举测试' &&cd CsvFileProcessor && node tsvOfStudiesEnumerator.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
