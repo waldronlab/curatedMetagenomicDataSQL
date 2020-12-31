@@ -48,7 +48,7 @@ export class csvFileImporter extends CsvFileProcessor {
                 )
             }
             //3.保存生成的JSON数据对象到数据库
-            this.tableInDB.create(jsonDataObj);
+            await this.tableInDB.create(jsonDataObj);
             //返回成功即可
             result = result && true;
         }

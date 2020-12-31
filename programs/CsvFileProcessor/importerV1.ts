@@ -25,7 +25,8 @@ export class importerV1 extends StudiesEnumerator {
                 log.error("元数据文件缺失:" + metaDataFilePath);
                 return;
             }
-            this.importTSV(metaDataFilePath, name);
+            //为了稳妥，还是慢慢同步导入
+            await this.importTSV(metaDataFilePath, name);
             ////
         } catch (error) {
             log.error("====================================================================================================");

@@ -8,7 +8,7 @@ export class importerV3 extends importerV2 {
     //这个方法用来导入研究/工程对应的tsv文件
     protected async importTSV(tsvFilePath: string, tableName: string) {
         let p=new csvFileImporter(tsvFilePath,"\t",tableName);
-        p.process();
+        await p.process();
     }
 }
 
