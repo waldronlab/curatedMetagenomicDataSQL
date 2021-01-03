@@ -1,7 +1,6 @@
-//表控制器:主要用来导入CSV文件中的数据
-require("../config/configDefault")
+require("../../config/configDefault")
 
-import {seq} from "./connect"
+import {seq} from "../connect"
 
 import {DataTypes,Op} from "sequelize"
 
