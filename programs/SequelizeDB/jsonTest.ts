@@ -3,49 +3,46 @@ require("../config/configDefault")
 
 import {seq} from "./connect"
 
-import {DataTypes} from "sequelize"
+import {DataTypes,Op} from "sequelize"
 
-
-export async function CreateTable(tableName: string, fieldsName: string[]) {
-    //ft是字段类型的缩写(默认是255)
-    //测试发现超长字段所以我们先设置成8192长，发现不够的话再增长
-    let ft=DataTypes.STRING(8192);
-    //fs是fields的缩写
-    let fs={};
-    for (let index:number=0;index<fieldsName.length;index++)
-    {
-        fs = Object.defineProperty(fs,
-            fieldsName[index], {
-                configurable: true,
-                enumerable:true,
-                value: ft
+async function unitTest() {
+    //1.建
+    let DT = seq.define('testTable', {
+        info: DataTypes.JSONB,
+        condition: DataTypes.STRING
+    });
+    //await dt.sync({force: true});
+    //2.增
+    let dt = DT.create({
+        info: {
+            "id": 33,
+            "name": "张三",
+            "age": 13
+        },
+        condition: "test"
+    });
+    //3.查
+    let dt2 = await DT.findOne({
+            where: {
+                "info.age": {
+                    [Op.gt]: 15
+                }
             }
-        )
-    }
-    //以上的fs就是我们自动创建的字段对象
-    let result:any=seq.define(tableName, fs, {tableName: tableName});
-    //根据测试发现，其它名字的表不会收到破坏,及时使用seq.sync({force: true}也是不会破坏
-    await result.sync({force: true});
-    return result;
-}
-
-
-async function unitTest(){
-    for (let t:number=1;t<3;t++)
-    {
-        let fs:Array<string>=[];
-        for (let c=1;c<1598;c++){
-            fs.push("f"+c);
         }
-        let tmp=await CreateTable("test"+t, fs);
-        //尝试插入数据
-        tmp.create({f1:'xxx',f2:'yyy',f3:'zzz'});
-    }
+    )
+    console.log(dt2);
 }
 
 if (module === require.main) {
-    //曾经得到过异常:(node:10544) UnhandledPromiseRejectionWarning: SequelizeDatabaseError: tables can have at most 1600 columns
-    console.log("表最多1600列,注意因为还有些自动添加的列");
-    unitTest();
+    unitTest()
+        .then(() => {
+            console.log("单元测试成功!")
+        })
+        .catch(() => {
+            console.log("单元测试失败!")
+        })
+        .finally(() => {
+            console.log("单元测试完成!")
+        })
 }
 
