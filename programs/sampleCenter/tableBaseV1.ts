@@ -28,38 +28,43 @@ export class tableBaseV1 {
     }
 
     //返回字段列表
-    protected async getFields(){
+    protected async getFields() {
         return {}
     }
 
     //定义表
     protected async defineTable() {
-        let fs:any=await this.getFields();
+        let fs: any = await this.getFields();
         //以上的fs就是我们自动创建的字段对象
         let result: any = seq.define(this.tableName, fs,
             {
                 tableName: this.tableName
-                ,schema:this.schema
+                , schema: this.schema
             });
         return result;
     }
 
     //创建表
+    private dt: any;
+
     public async createTable() {
-        //1.先把表定义出来
-        let result: any = await this.defineTable();
-        //2.然后同步更新
-        await result.sync({force: true});
-        //3.返回表
-        return result;
+        if (!this.dt) {
+            if (await this.check()) {
+                //1.先把表定义出来
+                this.dt = await this.defineTable();
+                //2.然后同步更新
+                await this.dt.sync({force: true});
+            }
+        }
+        return this.dt;
     }
 }
 
 
 async function unitTest() {
-    let obj:tableBaseV1=new tableBaseV1();
-    obj.tableName="samples";
-    obj.schema="v1";
+    let obj: tableBaseV1 = new tableBaseV1();
+    obj.tableName = "samples";
+    obj.schema = "v1";
     await obj.createTable();
     return true;
 }
