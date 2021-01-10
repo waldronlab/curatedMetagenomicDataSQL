@@ -1,6 +1,7 @@
 import {tableBaseV1} from "./tableBaseV1";
 import {CreateTable, DefineTable} from "../SequelizeDB/tableCreator";
 import {log} from "../log/logger";
+import {check} from "./checkerGenerator/FieldProcess";
 
 require("../config/configDefault")
 import {seq} from "../SequelizeDB/connect"
@@ -36,20 +37,31 @@ export class tableBaseV2 extends tableBaseV1 {
     }
 
     //插入一行
-    public async insert(json: object) {
+    public async insert(json: any) {
         if (this.check_input(json)) {
+            this.dt.create({
+                data: json
+                , sampleID: json.sampleID
+            });
         }
     }
 
     //检验:我们同步完成
     protected check_input(json: object): boolean {
         let result: boolean = true;
+
         if (!json) {
             this.errorMsg = "被插入的数据不许为空!";
             return false;
         }
         if (result) {
-            result = this.check_required(json);
+            try {
+                result = check(json);
+            }
+            catch (e) {
+                result=false;
+                this.errorMsg=e.msg;
+            }
         }
         return result;
     }
@@ -74,7 +86,7 @@ export class tableBaseV2 extends tableBaseV1 {
         for (let i: number = 0; i < required.length; i++) {
             const fsName: string = required[i];
             if (!json.hasOwnProperty(fsName)) {
-                this.errorMsg = "必要属性缺失:" + fsName;
+                this.errorMsg = "insert fail!required info is missing:" + fsName;
                 return false;
             }
         }
@@ -89,7 +101,20 @@ async function unitTest() {
     obj.schema = "v1";
     let dt: any = await obj.createTable();
     if (dt) {
-        obj.insert(null);
+        // obj.insert(null);
+        obj.insert({
+            "sampleID": 123
+            , "subjectID": null
+            , "body_site": null
+            , "country": null
+            , "sequencing_platform": null
+            , "PMID": null
+            , "number_reads": null
+            , "number_bases": null
+            , "minimum_read_length": null
+            , "median_read_length": null
+            , "curator": null
+        });
         console.log(obj.errorMsg);
     }
     return true;

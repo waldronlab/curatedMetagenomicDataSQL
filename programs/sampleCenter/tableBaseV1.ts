@@ -45,7 +45,7 @@ export class tableBaseV1 {
     }
 
     //创建表
-    private dt: any;
+    protected dt: any;
 
     public async createTable() {
         if (!this.dt) {
