@@ -5,7 +5,9 @@ require("../config/configDefault")
 import {seq} from "../SequelizeDB/connect"
 import {DataTypes, Op, fn, col} from "sequelize"
 
-//这个表是用来存放所有样本的表,所有创建过程比较复杂
+//这个表是用来存放所有样本的表,所以创建过程比较复杂
+//正因为如此，这个数据表基础才分成多个版本逐渐完善
+//这是一个模板实现了表的创建,到底创建后有哪些列：由派生类复杂完善
 export class tableBaseV1 {
     public tableName: string;
     public schema: string;

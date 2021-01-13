@@ -133,7 +133,7 @@ export function check(json:object):boolean{
     for (let index:number;index<fields.length;index++)
     {
         const field=fields[index];
-        if (!f1.check(json)){
+        if (!field.check(json)){
             return false;
         }
     }

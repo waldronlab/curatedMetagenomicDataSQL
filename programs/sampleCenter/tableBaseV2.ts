@@ -8,7 +8,7 @@ import {seq} from "../SequelizeDB/connect"
 import {DataTypes, Op, fn, col} from "sequelize"
 
 export class tableBaseV2 extends tableBaseV1 {
-    //返回字段列表
+    //返回字段列表:这个方法很重要，决定了创建出来的表到底有哪些列
     protected async getFields() {
         return {
             data: {
@@ -56,68 +56,65 @@ export class tableBaseV2 extends tableBaseV1 {
         }
         if (result) {
             try {
+                //此处调用自动生成的程序，对输入的数据进行一个校验
+                //只有通过校验的才会真正的插入到数据库里面去
                 result = check(json);
-            }
-            catch (e) {
-                result=false;
-                this.errorMsg=e.msg;
+            } catch (e) {
+                result = false;
+                this.errorMsg = e.msg;
             }
         }
         return result;
     }
 
     errorMsg: string;
-
-    //第一步:检查看看必须的字段是不是都有
-    protected check_required(json: object): boolean {
-        //以下是必须的属性列表
-        const required =
-            ["sampleID"
-                , "subjectID"
-                , "body_site"
-                , "country"
-                , "sequencing_platform"
-                , "PMID"
-                , "number_reads"
-                , "number_bases"
-                , "minimum_read_length"
-                , "median_read_length"
-                , "curator"];
-        for (let i: number = 0; i < required.length; i++) {
-            const fsName: string = required[i];
-            if (!json.hasOwnProperty(fsName)) {
-                this.errorMsg = "insert fail!required info is missing:" + fsName;
-                return false;
-            }
-        }
-        return true;
-    }
 }
 
+//1.得到所有研究
+async function getStudies() {
+    //1.建
+    let DT: any = await DefineTable('studies', ['studyName']);
+    //await dt.sync({force: true});
+    //2.查
+    const dts = await DT.findAll();
+    return dts;
+}
 
 async function unitTest() {
+    //1.把需要的表创建出来
     let obj: tableBaseV2 = new tableBaseV2();
     obj.tableName = "samples";
     obj.schema = "v1";
     let dt: any = await obj.createTable();
-    if (dt) {
-        // obj.insert(null);
-        obj.insert({
-            "sampleID": 123
-            , "subjectID": null
-            , "body_site": null
-            , "country": null
-            , "sequencing_platform": null
-            , "PMID": null
-            , "number_reads": null
-            , "number_bases": null
-            , "minimum_read_length": null
-            , "median_read_length": null
-            , "curator": null
-        });
-        console.log(obj.errorMsg);
+    //2.得到study列表
+    let studies: any = await getStudies();
+    let dtNames = [];
+    studies.forEach(v => {
+        dtNames.push(v.studyName);
+    });
+    //3.使用循环语句逐个处理各个study
+    for (let index: number = 0; index < studies.length; index++) {
+        //3.1.查询出单个的study中的样本
+        const dtName: string = dtNames[index];
+        const [results, metadata] = await seq.query("select * from public.\"" + dtName + "\"");
+        let samples = [];
+        results.forEach(
+            v => {
+                const strJson: string = JSON.stringify(v);
+                samples.push(strJson);
+            }
+        );
+        //3.2.逐个验证后输入数据库
+        for (let index: number = 0; index < samples.length; index++) {
+            const objJson = JSON.parse(samples[index]);
+            //3.2.1.删除对结果存在干扰的属性
+            delete objJson["id"];
+            delete objJson["createdAt"];
+            delete objJson["updatedAt"];
+            //3.2.2.插入数据库
+            obj.insert(objJson);
+        }
     }
-    return true;
 }
 
 
