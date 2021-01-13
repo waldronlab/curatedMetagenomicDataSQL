@@ -20,35 +20,38 @@ async function getColumnsInfo() {
 
 //单元测试程序
 async function unitTest() {
-    let fileName:string=__dirname+"/FieldProcess.ts";
-    let lines:string="";
-    lines+="//注意：这个文件的内容不要手动修改\n";
-    lines+="//注意：因为这个文件是使用checkerGeneratorV1根据数据库的内容自动生成的脚本\n";
-    lines+="\n";
-    lines+="import {FieldCheckerV3MultiValue} from \"./FieldCheckerV3MultiValue\";\n";
-    lines+="\n";
-    lines+="\n";
+    let fileName: string = __dirname + "/FieldProcess.ts";
+    let lines: string = "";
+    lines += "//注意：这个文件的内容不要手动修改\n";
+    lines += "//注意：因为这个文件是使用checkerGeneratorV1根据数据库的内容自动生成的脚本\n";
+    lines += "\n";
+    lines += "import {FieldCheckerV3MultiValue} from \"./FieldCheckerV3MultiValue\";\n";
+    lines += "\n";
+    lines += "let fields=[];";
+    lines += "\n";
 
-    let columns=await getColumnsInfo();
-    for(let index:number=0;index<columns.length;index++){
-        lines+="let f"+index.toString()+"=new FieldCheckerV3MultiValue(";
-        const column=columns[index];
-        lines+="\""+column.getDataValue("col.name")+"\"";
-        lines+=","+(column.getDataValue("requiredness")=="required");
-        const v:string=column.getDataValue("allowedvalues");
-        const v2:string=v.replace("\\","\\\\");
-        lines+=",\""+v2+"\"";
-        lines+=","+(column.getDataValue("multiplevalues")=="True");
-        lines+=");\n";
+    let columns = await getColumnsInfo();
+    for (let index: number = 0; index < columns.length; index++) {
+        lines += "fields.push(new FieldCheckerV3MultiValue(";
+        const column = columns[index];
+        lines += "\"" + column.getDataValue("col.name") + "\"";
+        lines += "," + (column.getDataValue("requiredness") == "required");
+        const v: string = column.getDataValue("allowedvalues");
+        const v2: string = v.replace("\\", "\\\\");
+        lines += ",\"" + v2 + "\"";
+        lines += "," + (column.getDataValue("multiplevalues") == "True");
+        lines += "));\n";
     }
-    lines+="export function check(json:object):boolean{\n";
-    for(let index:number=0;index<columns.length;index++){
-        lines+="    if (!f"+index+".check(json)){\n";
-        lines+="        return false;\n";
-        lines+="    }\n";
-    }
-    lines+="    return true;\n";
-    lines+="}\n";
+
+    lines += "export function check(json:object):boolean{\n";
+    lines += "  for (let index:number;index<fields.length;index++)\n";
+    lines += "  {\n";
+    lines += "    const field=fields[index];\n";
+    lines += "    if (!field.check(json))\n";
+    lines += "      return false;\n";
+    lines += "  }\n";
+    lines += "    return true;\n";
+    lines += "}\n";
 
 
     fs.writeFileSync(fileName, lines);
