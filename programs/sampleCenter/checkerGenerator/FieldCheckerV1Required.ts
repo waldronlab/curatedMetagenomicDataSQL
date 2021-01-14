@@ -21,5 +21,7 @@ export class FieldCheckerV1Required {
             throw new Error("insert fail!required info is missing:" + this.colName);
             return false;
         }
+        //挑不出毛病了，就算通过检查
+        return true;
     }
 }

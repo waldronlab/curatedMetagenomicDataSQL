@@ -131,7 +131,7 @@ fields.push(new FieldCheckerV3MultiValue("diet",false,"omnivore|vegan|vegetarian
 fields.push(new FieldCheckerV3MultiValue("curator",true,"Paolo_Manghi|Valentina_Giunchiglia|Pamela_Ferretti|Marisa_Metzger|Giacomo_DAmato|Jacob_Wirbel|Arianna_Bonetti|Anna_Pedrotti|Francesca_DeFilippis",true));
 fields.push(new FieldCheckerV3MultiValue("uncurated_metadata",false,".+",false));
 export function check(json:object):boolean{
-  for (let index:number;index<fields.length;index++)
+  for (let index:number=0;index<fields.length;index++)
   {
     const field=fields[index];
     if (!field.check(json))
