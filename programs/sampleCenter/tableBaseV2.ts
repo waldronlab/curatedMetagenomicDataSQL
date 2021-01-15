@@ -25,7 +25,7 @@ export class tableBaseV2 extends tableBaseV1 {
                     //这一列不允许为空
                     , allowNull: false
                 }
-            //第2个用于去重的列
+            //第2个用于去重的列:因为只有两列需要去重，所以我们作死在这里
             , NCBI_accession:
                 {
                     //这是最重要的一列,数据类型为JSONB
@@ -45,7 +45,7 @@ export class tableBaseV2 extends tableBaseV1 {
                 await this.dt.create({
                     data: json
                     , sampleID: json.sampleID
-                    , NCBI_accession:json.NCBI_accession.join(";")
+                    , NCBI_accession:json.NCBI_accession.join("...\n")
                 });
             } catch (e) {
                 result = false;
