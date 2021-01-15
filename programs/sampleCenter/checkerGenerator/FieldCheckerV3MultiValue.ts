@@ -16,9 +16,26 @@ export class FieldCheckerV3MultiValue extends FieldCheckerV2RE {
 
     //对多值实施拆分
     private split(value: any): any {
-        const result:string[]=value.split(";");
-        if (result.length>1){
+        const result: string[] = value.split(";");
+        if (result.length > 1) {
             console.log(result)
+        }
+        return result;
+    }
+
+    //去重
+    private duplicateRemoval(value: any): any {
+        if (value.length<2){
+            return value;
+        }
+        let oldValue:string=value[0];
+        let result=[oldValue];
+        for(let index:number=1;index<value.length;index++){
+            const newValue=value[index];
+            if(newValue!=oldValue){
+                result.push(newValue);
+                oldValue=newValue;
+            }
         }
         return result;
     }
@@ -57,8 +74,9 @@ export class FieldCheckerV3MultiValue extends FieldCheckerV2RE {
                 value = value.sort();
             }
             //3:如果有必要,还要进行最后一个预处理：去重
-
-
+            if (FieldCheckerV3MultiValue.needDuplicateRemovalDuringCheck) {
+                value = this.duplicateRemoval(value);
+            }
             //若为多值，则需要逐个元素进行匹配
             for (let index: number = 0; index < value.length; index++) {
                 const element = value[index];
