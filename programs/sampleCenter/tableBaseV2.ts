@@ -45,6 +45,7 @@ export class tableBaseV2 extends tableBaseV1 {
                 await this.dt.create({
                     data: json
                     , sampleID: json.sampleID
+                    , NCBI_accession:json.NCBI_accession.join(";")
                 });
             } catch (e) {
                 result = false;
