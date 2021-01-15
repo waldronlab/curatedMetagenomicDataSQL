@@ -4,6 +4,7 @@ export class FieldCheckerV1Required {
     protected colName: string;
     //列的必要性
     private requiredness: boolean;
+
     //构造函数
     constructor(colName: string, requiredness: boolean) {
         this.colName = colName;
@@ -11,17 +12,18 @@ export class FieldCheckerV1Required {
     }
 
     //针对必要性进行检查:注意，检测是只读的不进行任何修改
-    public check(json: object):boolean {
+    //成功通过函数返回
+    //失败通过异常返回原因
+    public check(json: object): void {
         //如果这一列不是必须的，那么直接跳过检查，按通过检查算
         if (!this.requiredness) {
-            return true;
+            return;
         }
         //否则,还得检查
         if (!json.hasOwnProperty(this.colName)) {
             throw new Error("insert fail!required info is missing:" + this.colName);
-            return false;
         }
         //挑不出毛病了，就算通过检查
-        return true;
+        return;
     }
 }

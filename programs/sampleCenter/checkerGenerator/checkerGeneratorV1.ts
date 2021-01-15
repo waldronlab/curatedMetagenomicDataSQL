@@ -38,19 +38,18 @@ async function unitTest() {
         lines += "," + (column.getDataValue("requiredness") == "required");
         const v: string = column.getDataValue("allowedvalues");
         const v2: string = v.replace("\\", "\\\\");
+        //const v2: string = v;
         lines += ",\"" + v2 + "\"";
         lines += "," + (column.getDataValue("multiplevalues") == "True");
         lines += "));\n";
     }
 
-    lines += "export function check(json:object):boolean{\n";
-    lines += "  for (let index:number;index<fields.length;index++)\n";
+    lines += "export function check(json:object):void{\n";
+    lines += "  for (let index:number=0;index<fields.length;index++)\n";
     lines += "  {\n";
     lines += "    const field=fields[index];\n";
-    lines += "    if (!field.check(json))\n";
-    lines += "      return false;\n";
+    lines += "    field.check(json);\n";
     lines += "  }\n";
-    lines += "    return true;\n";
     lines += "}\n";
 
 

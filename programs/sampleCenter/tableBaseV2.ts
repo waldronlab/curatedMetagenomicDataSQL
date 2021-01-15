@@ -38,18 +38,24 @@ export class tableBaseV2 extends tableBaseV1 {
 
     //插入一行
     public async insert(json: any) {
-        if (this.check_input(json)) {
-            this.dt.create({
-                data: json
-                , sampleID: json.sampleID
-            });
+        let result: boolean = this.check_input(json);
+        if (result) {
+            try {
+                await this.dt.create({
+                    data: json
+                    , sampleID: json.sampleID
+                });
+            } catch (e) {
+                result = false;
+                this.errorMsg = e.message;
+            }
         }
+        return result;
     }
 
     //检验:我们同步完成
     protected check_input(json: object): boolean {
         let result: boolean = true;
-
         if (!json) {
             this.errorMsg = "被插入的数据不许为空!";
             return false;
@@ -58,10 +64,10 @@ export class tableBaseV2 extends tableBaseV1 {
             try {
                 //此处调用自动生成的程序，对输入的数据进行一个校验
                 //只有通过校验的才会真正的插入到数据库里面去
-                result = check(json);
+                check(json);
             } catch (e) {
                 result = false;
-                this.errorMsg = e.msg;
+                this.errorMsg = e.message;
             }
         }
         return result;
@@ -112,7 +118,9 @@ async function unitTest() {
             delete objJson["createdAt"];
             delete objJson["updatedAt"];
             //3.2.2.插入数据库
-            obj.insert(objJson);
+            if (!await obj.insert(objJson)){
+                log.error(obj.errorMsg);
+            }
         }
     }
 }
