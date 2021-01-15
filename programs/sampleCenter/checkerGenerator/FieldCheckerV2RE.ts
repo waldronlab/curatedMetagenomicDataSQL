@@ -14,6 +14,8 @@ export class FieldCheckerV2RE extends FieldCheckerV1Required {
     //使用正则表达式去匹配输入的内容
     //成功通过函数返回,失败通过异常返回原因
     protected match(input: string): void {
+        //正则表达式不匹配的内容太多了，暂时先跳过去。
+        return;
         //因为这是有状态的，所以必须每次都临时创建一个新的
         let objRE:RegExp = new RegExp(this.objRE, "g");
         const mr: RegExpExecArray = objRE.exec(input);

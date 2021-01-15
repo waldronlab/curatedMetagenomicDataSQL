@@ -1,4 +1,5 @@
 import {FieldCheckerV2RE} from "./FieldCheckerV2RE";
+import {log} from "../../log/logger";
 
 export class FieldCheckerV3MultiValue extends FieldCheckerV2RE {
     //多值处理过程中必须的三个重要控制变量,使用静态变量实施全局控制
@@ -18,7 +19,8 @@ export class FieldCheckerV3MultiValue extends FieldCheckerV2RE {
     private split(value: any): any {
         const result: string[] = value.split(";");
         if (result.length > 1) {
-            console.log(result)
+            log.info("拆分后的多值:");
+            log.info(result)
         }
         return result;
     }
