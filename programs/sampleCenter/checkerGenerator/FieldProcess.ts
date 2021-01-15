@@ -21,7 +21,6 @@ fields.push(new FieldCheckerV3MultiValue("BMI",false,"[0-9]+\\.?[0-9]*",false));
 fields.push(new FieldCheckerV3MultiValue("country",true,"LBR|SLV|CAN|DNK|EST|FJI|FIN|FRA|DEU|ITA|MNG|NLD|NOR|ESP|PHL|SWE|USA|GBR|CHN|RUS|LUX|AUT|TZA|PER|MDG|ISL|BRN|IDN|MYS|HUN|SVK|SGP|ISR|BGD|KAZ|IND|GHA|ETH|JPN|CMR",false));
 fields.push(new FieldCheckerV3MultiValue("location",false,".+",false));
 fields.push(new FieldCheckerV3MultiValue("population",false,"[a-zA-Z]\\S+",false));
-fields.push(new FieldCheckerV3MultiValue("travel_destination",false,"CMR|ETH|KEN|TZA|RWA|IND|LKA|NPL",false));
 fields.push(new FieldCheckerV3MultiValue("non_westernized",false,"yes|no",false));
 fields.push(new FieldCheckerV3MultiValue("lifestyle",false,"Hunter-gatherer|Agriculturalist|Fisher",false));
 fields.push(new FieldCheckerV3MultiValue("days_from_first_collection",false,"[0-9]+",false));
@@ -130,6 +129,7 @@ fields.push(new FieldCheckerV3MultiValue("diet",false,"omnivore|vegan|vegetarian
 fields.push(new FieldCheckerV3MultiValue("curator",true,"Paolo_Manghi|Valentina_Giunchiglia|Pamela_Ferretti|Marisa_Metzger|Giacomo_DAmato|Jacob_Wirbel|Arianna_Bonetti|Anna_Pedrotti|Francesca_DeFilippis",true));
 fields.push(new FieldCheckerV3MultiValue("uncurated_metadata",false,".+",false));
 fields.push(new FieldCheckerV3MultiValue("antibiotics_current_use",false,"yes|no|NA",false));
+fields.push(new FieldCheckerV3MultiValue("travel_destination",false,"CMR|ETH|KEN|TZA|RWA|IND|LKA|NPL|NA",false));
 export function check(json:object):void{
   for (let index:number=0;index<fields.length;index++)
   {
