@@ -38,6 +38,7 @@ export class tableBaseV2 extends tableBaseV1 {
 
     //插入一行
     public async insert(json: any) {
+        this.errorMsg="插入成功!";
         let result: boolean = this.check_input(json);
         if (result) {
             try {
