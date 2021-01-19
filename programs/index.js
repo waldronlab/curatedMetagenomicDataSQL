@@ -10,6 +10,6 @@ app.use('/', function (req, res) {
 });
 if (module === require.main) {
     http.createServer(app).listen(3000);
-    console.log("express的http服务程序");
+    console.log("最简的express程序");
 }
 //# sourceMappingURL=index.js.map
