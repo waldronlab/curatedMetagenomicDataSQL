@@ -44,6 +44,9 @@
     * [4.对象组装技术](/关键技术/模块及调试/4.对象组装技术/README.md)
   * [三.数据存储及检索]
     * [第1种API.Sequelize](/关键技术/数据存储及检索/Sequelize/README.md)      
+  * [四.webService]
+    * [第1步http基础](/关键技术/webService/http/README.md)      
+  
   
 
 
