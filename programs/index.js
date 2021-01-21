@@ -5,7 +5,7 @@ const util = require("util");
 const url = require("url");
 const express = require("express");
 const app = express();
-app.use('/', function (req, res) {
+app.get('/', function (req, res) {
     res.send('root path');
 });
 if (module === require.main) {

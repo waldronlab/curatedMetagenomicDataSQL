@@ -45,7 +45,8 @@
   * [三.数据存储及检索]
     * [第1种API.Sequelize](/关键技术/数据存储及检索/Sequelize/README.md)      
   * [四.webService]
-    * [第1步http基础](/关键技术/webService/http/README.md)      
+    * [第1步:http精要](/关键技术/webService/http/README.md)
+    * [第2步:express精要](/关键技术/webService/express/README.md)
   
   
 
