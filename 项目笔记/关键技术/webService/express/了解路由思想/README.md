@@ -6,6 +6,7 @@
 
 ```bash
 npm install express -S
+npm install @types/express -S
 ```
 
 ## 辅助http模块实现http服务器
@@ -39,7 +40,7 @@ const httpServer=http.createServer(app);
 ### 第一步:引入express模块
 
 ```typescript
-const express=require("express");
+import express=require("express");
 ```
 
 ### 第二步:调用express模块的默认函数

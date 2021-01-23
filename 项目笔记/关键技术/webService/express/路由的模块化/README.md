@@ -22,7 +22,7 @@ hello.ts
 
 ```typescript
 //第一部分：所有路由都相同的头部
-const express=require("express");
+import express=require("express");
 const router=express.Router();
 
 //中间部分：才是路由自己的个性化部分
@@ -37,8 +37,8 @@ module.exports=router;
 # 路由序偶使用者
 
 ```typescript
-const http=require("http");
-const express=require("express");
+import http=require("http");
+import express=require("express");
 const app=express();
 
 //1.引入模块化之后的路由序偶

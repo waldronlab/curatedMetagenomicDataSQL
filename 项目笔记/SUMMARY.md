@@ -49,3 +49,5 @@
     * [知识点2:express精要]
       * [第1步:先了解路由思想](/关键技术/webService/express/了解路由思想/README.md)
       * [第2步:掌握路由的模块化](/关键技术/webService/express/路由的模块化/README.md)
+    * [知识点3:swagger精要]
+      * [第1步:全局swagger信息设置](/关键技术/webService/swagger/全局swagger信息设置/README.md)

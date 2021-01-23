@@ -7,7 +7,7 @@ http模块是nodejs的内置模块，所以不需要专门进行安装。
 ## 第一步:引入http模块
 
 ```typescript
-const http = require("http");
+import http = require("http");
 ```
 
 ## 第二步:创建http服务器
