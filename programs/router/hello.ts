@@ -2,10 +2,21 @@
 import express=require("express");
 const router=express.Router();
 
-//中间部分：才是路由自己的个性化部分
-router.get('/', function (req, res) {
-    res.send('hello');
-})
+/**
+ * @swagger
+ * /api/hello:
+ *   get:
+ *     tags:
+ *       - test
+ *   summary: 对无参方法进行测试
+ *   description: 这个方法的文字描述
+ *   responses:
+ *     "200":
+ *       description: 执行成功，会返回world。
+ */
+router.get('/hello', function (req, res) {
+    res.send('world');
+});
 
 //最后部分：是把路由暴露给其它模块的代码
 module.exports=router;
