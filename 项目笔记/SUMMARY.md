@@ -52,3 +52,4 @@
     * [知识点3:swagger精要]
       * [第1步:全局swagger信息设置](/关键技术/webService/swagger/全局swagger信息设置/README.md)
       * [第2步:具体api注释入门](/关键技术/webService/swagger/具体api注释入门/README.md)
+      * [第3步:入口参数的简单刻画](/关键技术/webService/swagger/入口参数的简单刻画/README.md)
