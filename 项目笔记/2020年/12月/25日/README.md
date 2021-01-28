@@ -35,7 +35,7 @@ npm install  pg -S
 var pg = require('pg');
 //2.连接字符串(连接数据库必须的关键敏感信息都在其中)
 //tcp://用户名：密码@服务器地址/数据库名
-var conString = "tcp://postgres:docker@192.168.138.7/postgres";
+var conString = "tcp://postgres:docker@192.168.142.7/postgres";
 //3.创建链接用的客户端
 var client =  new pg.Client(conString);
 //4.准备连接后的处理函数
@@ -113,9 +113,9 @@ export class DatabaseConnectorBase {
 
 //何飞个人的数据库连接信息(通过这种方式，我们的数据库连接信息就可以重用了)
 export class DbConnectorOfHefei extends DatabaseConnectorBase {
-    //1.我架设的数据库服务器不在本机，而在192.168.138.7上面,所以覆盖基类中的定义
+    //1.我架设的数据库服务器不在本机，而在192.168.142.7上面,所以覆盖基类中的定义
     protected getHostName(): string {
-        return "192.168.138.7"
+        return "192.168.142.7"
     }
 
     //2.我们的密码不是默认的123456,而是docker
