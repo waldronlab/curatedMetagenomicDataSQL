@@ -113,9 +113,9 @@ export class DBConfigBase {
 
 //何飞个人的数据库配置信息
 export class DBConfigOfHefei extends DBConfigBase {
-    //1.我架设的数据库服务器不在本机，而在192.168.138.7上面,所以覆盖基类中的定义
+    //1.我架设的数据库服务器不在本机，而在192.168.142.7上面,所以覆盖基类中的定义
     protected getHostName(): string {
-        return "192.168.138.7"
+        return "192.168.142.7"
     }
 
     //5.这个负责提供链接数据库所必须的库名(因为一台数据库服务器上存在多个数据库)
@@ -398,9 +398,9 @@ export class DBConfigBase {
 
 //何飞个人的数据库配置信息
 export class DBConfigOfHefei extends DBConfigBase {
-    //1.我架设的数据库服务器不在本机，而在192.168.138.7上面,所以覆盖基类中的定义
+    //1.我架设的数据库服务器不在本机，而在192.168.142.7上面,所以覆盖基类中的定义
     protected getHostName(): string {
-        return "192.168.138.7"
+        return "192.168.142.7"
     }
 
     //5.这个负责提供链接数据库所必须的库名(因为一台数据库服务器上存在多个数据库)
