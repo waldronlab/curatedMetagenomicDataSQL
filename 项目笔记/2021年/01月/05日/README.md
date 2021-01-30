@@ -16,7 +16,7 @@
 
 我们自己创建了一个开发用的本地仓库，仓库克隆自：甲方给定的数据仓库。
 
-我们的仓库位于(只有VPN内部可见)：[http://192.168.138.7:55555/summary/quandata.git](http://192.168.138.7:55555/summary/quandata.git)
+我们的仓库位于(只有VPN内部可见)：[http://192.168.142.7:55555/summary/quandata.git](http://192.168.142.7:55555/summary/quandata.git)
 
 # 必要列缺失问题
 
