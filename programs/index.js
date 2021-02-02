@@ -23,7 +23,7 @@ const swaggerOptions = {
             //这套api的版本1.0.0
             ,
             version: '1.0.0',
-            description: "这套api的描述"
+            description: "Description of APIs"
         }
     }
     //这个就很重要了，它决定了从哪里提取api的规范信息

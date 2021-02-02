@@ -26,7 +26,7 @@ export class ConfigBase {
 
     //1.这个负责提供连接数据库所必须的主机名
     protected getPostgresHostName(): string {
-        return process.env.DB_HOST || "192.168.138.7";
+        return process.env.DB_HOST || "192.168.142.7";
     }
 
     //2.这个负责提供连接数据库必须的端口号

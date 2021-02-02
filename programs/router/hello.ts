@@ -8,11 +8,11 @@ const router=express.Router();
  *   get:
  *     tags:
  *       - test
- *     summary: 方法的最简描述
- *     description: 方法的完整描述
+ *     summary: directly get output without input
+ *     description: description of this method
  *     responses:
  *       "200":
- *         description: 执行成功，会返回world。
+ *         description: success ，then show 'world'。
  */
 router.get('/hello', function (req, res) {
     res.send('world');
@@ -24,17 +24,17 @@ router.get('/hello', function (req, res) {
  *   get:
  *     tags:
  *       - test
- *     summary: 给啥就返回啥
- *     description: 用来测试数据的传递
+ *     summary: echo
+ *     description: Set input and get output
  *     parameters:
  *       - name: name
- *         description: 人名
+ *         description: user name
  *         in: query
  *         required: true
  *         type: string
  *     responses:
  *       "200":
- *         description: 执行成功，会返回提供的参数
+ *         description: If the execution is successful, the parameters are obtained
  */
 router.get('/echo', function (req, res) {
     let name=req.query.name;
