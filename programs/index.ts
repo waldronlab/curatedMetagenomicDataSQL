@@ -35,5 +35,5 @@ const spec=doc(swaggerOptions);
 app.use("/api-docs",ui.serve,ui.setup(spec));
 
 if (module===require.main){
-    http.createServer(app).listen(3000);
+    http.createServer(app).listen(80);
 }

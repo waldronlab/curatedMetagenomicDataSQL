@@ -23,7 +23,7 @@ const swaggerOptions = {
             //这套api的版本1.0.0
             ,
             version: '1.0.0',
-            description: "Description of APIs"
+            description: "这套api的描述"
         }
     }
     //这个就很重要了，它决定了从哪里提取api的规范信息
@@ -35,6 +35,6 @@ const spec = doc(swaggerOptions);
 //5.根据规范生成网页界面
 app.use("/api-docs", ui.serve, ui.setup(spec));
 if (module === require.main) {
-    http.createServer(app).listen(3000);
+    http.createServer(app).listen(80);
 }
 //# sourceMappingURL=index.js.map
