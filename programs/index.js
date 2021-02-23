@@ -8,8 +8,10 @@ const ui = require("swagger-ui-express");
 const app = express();
 //1.引入模块化之后的路由序偶
 const router = require("./router/hello");
+const query = require("./router/query");
 //2.使用路由序偶(可以用来代替http请求处理程序)
 app.use('/api', router);
+app.use('/query', query);
 //3.swagger的全局选项/工程选项
 const swaggerOptions = {
     definition: {

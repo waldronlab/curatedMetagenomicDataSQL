@@ -1,6 +1,7 @@
 //第一部分：所有路由都相同的头部
 import express=require("express");
 const router=express.Router();
+import {tableBaseV3} from "../sampleCenter/tableBaseV3";
 
 /**
  * @swagger
@@ -9,13 +10,19 @@ const router=express.Router();
  *     tags:
  *       - query
  *     summary: directly get output without input
- *     description: description of this method
+ *     description: get last inserted sample
  *     responses:
  *       "200":
- *         description: success ，then show 'world'。
+ *         description: success ，last inserted sample。
  */
-router.get('/hello', function (req, res) {
-    res.send('world');
+router.get('/last', async function (req, res) {
+    let obj: tableBaseV3 = new tableBaseV3();
+    obj.tableName = "samples";
+    obj.schema = "v1";
+    var objJson:any=await obj.last();
+    res.writeHead(200, {'Content-Type': 'application/json'});
+    objJson=JSON.stringify(objJson.data);
+    res.end(objJson);
 });
 
 
