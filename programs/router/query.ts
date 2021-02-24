@@ -9,7 +9,7 @@ import {tableBaseV3} from "../sampleCenter/tableBaseV3";
  *   get:
  *     tags:
  *       - query
- *     summary: directly get output without input
+ *     summary: directly get last sample without input
  *     description: get last inserted sample
  *     responses:
  *       "200":
