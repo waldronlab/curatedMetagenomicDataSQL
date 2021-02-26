@@ -5,12 +5,25 @@ import {tableBaseV3} from "../sampleCenter/tableBaseV3";
 
 /**
  * @swagger
- * /append/new:
+ *   /append/new:
  *   post:
  *     tags:
  *       - append
- *     summary: directly get last sample without input
- *     description: get last inserted sample
+ *     summary: directly append as last sample
+ *     requestBody:
+ *       description: Pet object that needs to be added to the store
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             example:
+ *               petId: 6
+ *               quantity: 1
+ *               id: 0
+ *               shipDate: 2000-0
+ *               complete: false
+ *               status: placed
+ *       required: true
  *     responses:
  *       "200":
  *         description: success ，last inserted sample。

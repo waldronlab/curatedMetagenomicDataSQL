@@ -19,7 +19,7 @@ app.use('/append', append);
 const swaggerOptions={
     definition:{
         //OpenAPI的版本：我们使用最新的3.0版本
-        openapi:'3.0.0'
+        openapi:'3.0.1'
         //其它显示给使用者的全局信息
         ,info:{
             //这套api的名字：万全

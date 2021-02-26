@@ -10,6 +10,8 @@ import {tableBaseV3} from "../sampleCenter/tableBaseV3";
  *     tags:
  *       - query
  *     summary: directly get last sample without input
+ *     produces:
+ *     - application/json
  *     description: get last inserted sample
  *     responses:
  *       "200":
