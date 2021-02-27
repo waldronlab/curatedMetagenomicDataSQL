@@ -3,7 +3,11 @@ import express=require("express");
 import path=require("path");
 import doc=require("swagger-jsdoc");
 import ui=require("swagger-ui-express");
+import bodyParser = require('body-parser');
 const app=express();
+app.use(bodyParser.urlencoded({extended:false}))
+app.use(bodyParser.json());
+
 
 //1.引入模块化之后的路由序偶
 const router=require("./router/hello")

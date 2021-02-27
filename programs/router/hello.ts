@@ -41,6 +41,35 @@ router.get('/echo', function (req, res) {
     res.send('hello '+name);
 });
 
+/**
+ * @swagger
+ * /api/echo:
+ *   post:
+ *     tags:
+ *       - test
+ *     summary: echo
+ *     description: Set input and get output
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             example:
+ *               "整数": 8
+ *               "字符串": "test"
+ *               "数组":
+ *                 - 1
+ *                 - 2
+ *                 - 3
+ *     responses:
+ *       "200":
+ *         description: If the execution is successful, the parameters are obtained
+ */
+router.post('/echo', function (req, res) {
+    res.send(req.body);
+});
+
+
 
 //最后部分：是把路由暴露给其它模块的代码
 module.exports=router;

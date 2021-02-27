@@ -13,10 +13,29 @@ import {tableBaseV3} from "../sampleCenter/tableBaseV3";
  *     requestBody:
  *       description: Pet object that needs to be added to the store
  *       content:
- *         application/json:
+ *         application/json/samplea:
+ *         application/json/sample1:
  *           schema:
  *             type: object
  *             example:
+ *               "整数": 8
+ *               "字符串": "test"
+ *               "数组":
+ *                 - 1
+ *                 - 2
+ *                 - 3
+ *         application/json/sample2:
+ *           schema:
+ *             type: object
+ *             example:
+ *               "BMI": "31.0"
+ *               "age": "63"
+ *               "tnm": "t1n0m0"
+ *               "PMID": "25432777"
+ *               "ajcc": "i"
+ *               "fobt": "no"
+ *               "gender": "male"
+ *               "country": "FRA"
  *               petId: 6
  *               quantity: 1
  *               id: 0

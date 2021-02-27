@@ -5,7 +5,10 @@ const express = require("express");
 const path = require("path");
 const doc = require("swagger-jsdoc");
 const ui = require("swagger-ui-express");
+const bodyParser = require("body-parser");
 const app = express();
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 //1.引入模块化之后的路由序偶
 const router = require("./router/hello");
 const query = require("./router/query");
