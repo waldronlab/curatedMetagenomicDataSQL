@@ -13,18 +13,7 @@ import {tableBaseV3} from "../sampleCenter/tableBaseV3";
  *     requestBody:
  *       description: Pet object that needs to be added to the store
  *       content:
- *         application/json/samplea:
- *         application/json/sample1:
- *           schema:
- *             type: object
- *             example:
- *               "整数": 8
- *               "字符串": "test"
- *               "数组":
- *                 - 1
- *                 - 2
- *                 - 3
- *         application/json/sample2:
+ *         application/json:
  *           schema:
  *             type: object
  *             example:
@@ -36,12 +25,29 @@ import {tableBaseV3} from "../sampleCenter/tableBaseV3";
  *               "fobt": "no"
  *               "gender": "male"
  *               "country": "FRA"
- *               petId: 6
- *               quantity: 1
- *               id: 0
- *               shipDate: 2000-0
- *               complete: false
- *               status: placed
+ *               "curator":
+ *                 - "Paolo_Manghi"
+ *               "disease":
+ *                 - "CRC"
+ *               "sampleID": "CCIS91228662ST-4-0"
+ *               "body_site": "stool"
+ *               "subjectID": "FR-275"
+ *               "age_category": "adult"
+ *               "number_bases": "8027807010"
+ *               "number_reads": "94076829"
+ *               "NCBI_accession":
+ *                 - "ERR479389"
+ *                 - "ERR479390"
+ *                 - "ERR480885"
+ *                 - "ERR480886"
+ *               "disease_subtype": "carcinoma"
+ *               "non_westernized": "no"
+ *               "study_condition": "CRC"
+ *               "DNA_extraction_kit": "Gnome"
+ *               "median_read_length": "92"
+ *               "minimum_read_length": "45"
+ *               "sequencing_platform": "IlluminaHiSeq"
+ *               "antibiotics_current_use": "NA"
  *       required: true
  *     responses:
  *       "200":
