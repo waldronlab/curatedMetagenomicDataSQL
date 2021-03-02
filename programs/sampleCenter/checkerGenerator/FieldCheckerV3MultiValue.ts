@@ -17,6 +17,12 @@ export class FieldCheckerV3MultiValue extends FieldCheckerV2RE {
 
     //对多值实施拆分
     private split(value: any): any {
+        if (Array.isArray(value))
+        {
+            //若本身就是数组，就不用拆分了
+            return value;
+        }
+        //否则，还需要使用分号进行拆分
         const result: string[] = value.split(";");
         if (result.length > 1) {
             log.info("拆分后的多值:");

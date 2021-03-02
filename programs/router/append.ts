@@ -57,10 +57,9 @@ router.post('/new', async function (req, res) {
     let obj: tableBaseV3 = new tableBaseV3();
     obj.tableName = "samples";
     obj.schema = "v1";
-    var objJson:any=await obj.last();
-    res.writeHead(200, {'Content-Type': 'application/json'});
-    objJson=JSON.stringify(objJson.data);
-    res.end(objJson);
+    var result:any=await obj.append(req.body)
+    res.status(result.code)
+    res.send(result.text);
 });
 
 

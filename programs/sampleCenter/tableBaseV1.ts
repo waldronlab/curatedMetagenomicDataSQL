@@ -43,6 +43,7 @@ export class tableBaseV1 {
                 tableName: this.tableName
                 , schema: this.schema
             });
+        this.dt=result;
         return result;
     }
 
