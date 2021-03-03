@@ -18,7 +18,7 @@ export class tableBaseV3 extends tableBaseV2 {
     //追加一个新的样本
     public async append(objJson){
         let dt=await this.defineTable();
-        const result={code:200,text:"append success!"};
+        const result={code:200,status:"message:\"success\""};
         //1.删除对结果存在干扰的属性
         delete objJson["id"];
         delete objJson["createdAt"];
@@ -27,7 +27,7 @@ export class tableBaseV3 extends tableBaseV2 {
         if (!await this.insert(objJson)){
             log.error(this.errorMsg);
             result.code=400;
-            result.text=this.errorMsg;
+            result.status=this.errorMsg;
         }
         //3.返回结果
         return result;

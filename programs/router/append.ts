@@ -9,6 +9,8 @@ import {tableBaseV3} from "../sampleCenter/tableBaseV3";
  *   post:
  *     tags:
  *       - append
+ *     produces:
+ *     - application/json
  *     summary: directly append as last sample
  *     requestBody:
  *       description: Pet object that needs to be added to the store
@@ -58,8 +60,8 @@ router.post('/new', async function (req, res) {
     obj.tableName = "samples";
     obj.schema = "v1";
     var result:any=await obj.append(req.body)
-    res.status(result.code)
-    res.send(result.text);
+    res.writeHead("200", {'Content-Type': 'application/json'});
+    res.end(result.text);
 });
 
 

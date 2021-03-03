@@ -16,15 +16,25 @@ import {tableBaseV3} from "../sampleCenter/tableBaseV3";
  *     responses:
  *       "200":
  *         description: success ，last inserted sample。
+ *       "404":
+ *         description: success ，last inserted sample。
  */
 router.get('/last', async function (req, res) {
     let obj: tableBaseV3 = new tableBaseV3();
     obj.tableName = "samples";
     obj.schema = "v1";
     var objJson:any=await obj.last();
-    res.writeHead(200, {'Content-Type': 'application/json'});
-    objJson=JSON.stringify(objJson.data);
-    res.end(objJson);
+
+    if (objJson==null)
+    {
+        res.status(404)
+        res.send("not found!")
+    }
+    else{
+        res.writeHead(200, {'Content-Type': 'application/json'});
+        objJson=JSON.stringify(objJson.data);
+        res.end(objJson);
+    }
 });
 
 

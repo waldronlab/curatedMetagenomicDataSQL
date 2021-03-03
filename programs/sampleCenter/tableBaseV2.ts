@@ -24,6 +24,8 @@ export class tableBaseV2 extends tableBaseV1 {
                     type: DataTypes.STRING(8192)
                     //这一列不允许为空
                     , allowNull: false
+                    //去重
+                    , unique: true
                 }
             //第2个用于去重的列:因为只有两列需要去重，所以我们作死在这里
             , NCBI_accession:
@@ -32,6 +34,8 @@ export class tableBaseV2 extends tableBaseV1 {
                     type: DataTypes.STRING(8192)
                     //这个不填则没事，但是主要填写了就不能重复
                     , allowNull: true
+                    //去重
+                    , unique: true
                 }
         }
     }
@@ -49,7 +53,7 @@ export class tableBaseV2 extends tableBaseV1 {
                 });
             } catch (e) {
                 result = false;
-                this.errorMsg = e.message;
+                this.errorMsg = e.message+JSON.stringify(e)
             }
         }
         return result;
@@ -69,7 +73,7 @@ export class tableBaseV2 extends tableBaseV1 {
                 check(json);
             } catch (e) {
                 result = false;
-                this.errorMsg = e.message;
+                this.errorMsg = JSON.stringify(e)
             }
         }
         return result;
