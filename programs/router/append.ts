@@ -64,7 +64,8 @@ router.post('/new', async function (req, res) {
     res.end(result.text);
 });
 
-
+//失败的时候，为了精确的知道出错原因
+//返回错误信息应该比较多一些。所以，错误信息，仍然以json的形式返回。
 
 //最后部分：是把路由暴露给其它模块的代码
 module.exports=router;

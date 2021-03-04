@@ -17,7 +17,7 @@ import {tableBaseV3} from "../sampleCenter/tableBaseV3";
  *       "200":
  *         description: success ，last inserted sample。
  *       "404":
- *         description: success ，last inserted sample。
+ *         description: not found last sample, number of samples is zero。
  */
 router.get('/last', async function (req, res) {
     let obj: tableBaseV3 = new tableBaseV3();

@@ -42,7 +42,7 @@ export class tableBaseV2 extends tableBaseV1 {
 
     //插入一行
     public async insert(json: any) {
-        this.errorMsg="插入成功!";
+        this.errorMsg="result:\"success\"";
         let result: boolean = this.check_input(json);
         if (result) {
             try {
@@ -53,7 +53,7 @@ export class tableBaseV2 extends tableBaseV1 {
                 });
             } catch (e) {
                 result = false;
-                this.errorMsg = e.message+JSON.stringify(e)
+                this.errorMsg = JSON.stringify(e)
             }
         }
         return result;
@@ -63,7 +63,7 @@ export class tableBaseV2 extends tableBaseV1 {
     protected check_input(json: object): boolean {
         let result: boolean = true;
         if (!json) {
-            this.errorMsg = "被插入的数据不许为空!";
+            this.errorMsg = "{}";
             return false;
         }
         if (result) {
