@@ -42,7 +42,7 @@ export class tableBaseV2 extends tableBaseV1 {
 
     //插入一行
     public async insert(json: any) {
-        this.errorMsg="result:\"success\"";
+        this.errorObject={success:true,cause:"all is well"};
         let result: boolean = this.check_input(json);
         if (result) {
             try {
@@ -53,7 +53,7 @@ export class tableBaseV2 extends tableBaseV1 {
                 });
             } catch (e) {
                 result = false;
-                this.errorMsg = JSON.stringify(e)
+                this.errorObject = {success:false,cause:e};
             }
         }
         return result;
@@ -61,9 +61,9 @@ export class tableBaseV2 extends tableBaseV1 {
 
     //检验:我们同步完成
     protected check_input(json: object): boolean {
-        let result: boolean = true;
+        let result = true;
         if (!json) {
-            this.errorMsg = "{}";
+            this.errorObject = {success:false,cause:"input is null!"};
             return false;
         }
         if (result) {
@@ -73,13 +73,13 @@ export class tableBaseV2 extends tableBaseV1 {
                 check(json);
             } catch (e) {
                 result = false;
-                this.errorMsg = JSON.stringify(e)
+                this.errorObject = {success:false,cause:e};
             }
         }
         return result;
     }
 
-    errorMsg: string;
+    errorObject: object={success:true,cause:"all is well"};
 }
 
 //1.得到所有研究
@@ -125,7 +125,7 @@ async function unitTest() {
             delete objJson["updatedAt"];
             //3.2.2.插入数据库
             if (!await obj.insert(objJson)){
-                log.error(obj.errorMsg);
+                log.error(JSON.stringify(obj.errorObject));
             }
         }
     }

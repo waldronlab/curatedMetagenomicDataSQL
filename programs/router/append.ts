@@ -53,15 +53,15 @@ import {tableBaseV3} from "../sampleCenter/tableBaseV3";
  *       required: true
  *     responses:
  *       "200":
- *         description: success ，last inserted sample。
+ *         description: 200 is the only code。Success or failure please check the member success of response body
  */
 router.post('/new', async function (req, res) {
     let obj: tableBaseV3 = new tableBaseV3();
     obj.tableName = "samples";
     obj.schema = "v1";
     var result:any=await obj.append(req.body)
-    res.writeHead("200", {'Content-Type': 'application/json'});
-    res.end(result.text);
+    res.writeHead(200, {'Content-Type': 'application/json'});
+    res.end(JSON.stringify(obj.errorObject));
 });
 
 //失败的时候，为了精确的知道出错原因
