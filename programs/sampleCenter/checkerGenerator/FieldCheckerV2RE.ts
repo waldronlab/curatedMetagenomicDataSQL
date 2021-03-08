@@ -26,7 +26,7 @@ export class FieldCheckerV2RE extends FieldCheckerV1Required {
             result = (mr.input == mr[0]);
         }
         if (!result) {
-            throw new Error(this.colName + ":" + input + "不匹配" + this.strRE);
+            throw new Error(this.colName + "(" + input + ")不匹配" + this.strRE);
         }
     }
 }

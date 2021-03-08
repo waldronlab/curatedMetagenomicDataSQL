@@ -61,7 +61,8 @@ router.post('/new', async function (req, res) {
     obj.schema = "v1";
     var result:any=await obj.append(req.body)
     res.writeHead(200, {'Content-Type': 'application/json'});
-    res.end(JSON.stringify(obj.errorObject));
+    const txt=JSON.stringify(obj.errorObject,["success","cause","stack","message",]);
+    res.end(txt);
 });
 
 //失败的时候，为了精确的知道出错原因
