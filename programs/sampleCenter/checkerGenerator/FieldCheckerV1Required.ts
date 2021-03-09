@@ -21,7 +21,7 @@ export class FieldCheckerV1Required {
         }
         //否则,还得检查
         if (!json.hasOwnProperty(this.colName)) {
-            throw new Error("insert fail!required info is missing:" + this.colName);
+            throw new Error("required info is missing:" + this.colName);
         }
         //挑不出毛病了，就算通过检查
         return;
