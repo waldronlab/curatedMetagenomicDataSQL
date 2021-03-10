@@ -12,11 +12,13 @@ app.use(bodyParser.json());
 //1.引入模块化之后的路由序偶
 const query=require("./router/query")
 const append=require("./router/append")
+const delete_=require("./router/delete")
 
 
 //2.使用路由序偶(可以用来代替http请求处理程序)
 app.use('/query', query);
 app.use('/append', append);
+app.use('/delete', delete_);
 //3.swagger的全局选项/工程选项
 const swaggerOptions={
     definition:{
