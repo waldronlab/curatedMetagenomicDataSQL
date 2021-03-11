@@ -9,15 +9,49 @@ import {tableBaseV3} from "../sampleCenter/tableBaseV3";
  *   get:
  *     tags:
  *       - query
- *     summary: directly get last sample without input
- *     produces:
- *     - application/json
- *     description: get last inserted sample
+ *     summary: Delete samples that meet the conditions
+ *     requestBody:
+ *       description: where conditions
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             example:
+ *               "BMI": "31.0"
+ *               "age": "63"
+ *               "tnm": "t1n0m0"
+ *               "PMID": "25432777"
+ *               "ajcc": "i"
+ *               "fobt": "no"
+ *               "gender": "male"
+ *               "country": "FRA"
+ *               "curator":
+ *                 - "Paolo_Manghi"
+ *               "disease":
+ *                 - "CRC"
+ *               "sampleID": "CCIS91228662ST-4-0"
+ *               "body_site": "stool"
+ *               "subjectID": "FR-275"
+ *               "age_category": "adult"
+ *               "number_bases": "8027807010"
+ *               "number_reads": "94076829"
+ *               "NCBI_accession":
+ *                 - "ERR479389"
+ *                 - "ERR479390"
+ *                 - "ERR480885"
+ *                 - "ERR480886"
+ *               "disease_subtype": "carcinoma"
+ *               "non_westernized": "no"
+ *               "study_condition": "CRC"
+ *               "DNA_extraction_kit": "Gnome"
+ *               "median_read_length": "92"
+ *               "minimum_read_length": "45"
+ *               "sequencing_platform": "IlluminaHiSeq"
+ *               "antibiotics_current_use": "NA"
+ *       required: true
  *     responses:
  *       "200":
- *         description: success ，last inserted sample。
- *       "404":
- *         description: not found last sample, number of samples is zero。
+ *         description: 200 is the only code。Success or failure please check the member success of response body
  */
 router.get('/last', async function (req, res) {
     let obj: tableBaseV3 = new tableBaseV3();
