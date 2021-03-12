@@ -13,7 +13,7 @@ import {tableBaseV3} from "../sampleCenter/tableBaseV3";
  *     - application/json
  *     summary: directly append as last sample
  *     requestBody:
- *       description: Pet object that needs to be added to the store
+ *       description: sample object that needs to be added to the sample center
  *       content:
  *         application/json:
  *           schema:
