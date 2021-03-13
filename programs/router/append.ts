@@ -18,7 +18,7 @@ import {tableBaseV3} from "../sampleCenter/tableBaseV3";
  *         application/json:
  *           schema:
  *             type: object
- *             example:
+ *           example:
  *               "BMI": "31.0"
  *               "age": "63"
  *               "tnm": "t1n0m0"

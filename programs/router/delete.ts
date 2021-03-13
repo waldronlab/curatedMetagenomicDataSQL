@@ -6,9 +6,9 @@ import {tableBaseV3} from "../sampleCenter/tableBaseV3";
 /**
  * @swagger
  * /delete/where:
- *   get:
+ *   post:
  *     tags:
- *       - query
+ *       - delete
  *     summary: Delete samples that meet the conditions
  *     requestBody:
  *       description: where conditions
