@@ -2,6 +2,7 @@ import {tableBaseV2} from "./tableBaseV2";
 import {tableBaseV1} from "./tableBaseV1";
 import {DataTypes} from "sequelize";
 import {log} from "../log/logger";
+import {check} from "./checkerGenerator/FieldProcess";
 export class tableBaseV3 extends tableBaseV2 {
     //返回最近新加的样本
     public async last() {
@@ -30,5 +31,17 @@ export class tableBaseV3 extends tableBaseV2 {
         }
         //3.返回结果
         return result;
+    }
+    //删除满足条件的样本
+    public async deleteSamples(objJson){
+        let dt=await this.defineTable();
+        let result:boolean=true;
+        let where={data:objJson};
+        try {
+            let r=await dt.destroy({where:where});
+            this.errorObject = {success:true,count:r};
+        } catch (e) {
+            this.errorObject = {success:false,cause:e};
+        }
     }
 }
