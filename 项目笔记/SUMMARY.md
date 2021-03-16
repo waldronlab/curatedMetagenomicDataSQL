@@ -61,3 +61,5 @@
       * [第2步:具体api注释入门](/关键技术/webService/swagger/具体api注释入门/README.md)
       * [第3步:入口参数的简单刻画](/关键技术/webService/swagger/入口参数的简单刻画/README.md)
       * [其它收集的swagger资料](/关键技术/webService/swagger/其它收集的swagger资料/README.md)
+* [五.功能演示]
+  * [1.样本的增加和删除](/功能演示/样本的增加和删除/README.md)
