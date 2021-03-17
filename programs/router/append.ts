@@ -61,7 +61,7 @@ router.post('/new', async function (req, res) {
     obj.schema = "v1";
     var result:any=await obj.append(req.body)
     res.writeHead(200, {'Content-Type': 'application/json'});
-    const txt=JSON.stringify(obj.errorObject,["success","cause","message","errors","value"]);
+    const txt=JSON.stringify(obj.errorObject,["success","cause","message","errors","value","original","detail"]);
     res.end(txt);
 });
 

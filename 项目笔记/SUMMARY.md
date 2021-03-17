@@ -63,3 +63,4 @@
       * [其它收集的swagger资料](/关键技术/webService/swagger/其它收集的swagger资料/README.md)
 * [五.功能演示]
   * [1.样本的增加和删除](/功能演示/样本的增加和删除/README.md)
+  * [2.追加样本时进行的约束检查](/功能演示/追加样本时进行的约束检查/README.md)
