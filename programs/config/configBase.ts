@@ -1,6 +1,6 @@
 //全局配置基础
 import * as fs from "fs";
-import {Dialect,Options, Sequelize} from 'sequelize';
+import {Dialect, Op, Options, Sequelize} from 'sequelize';
 import {connect} from "../SequelizeDB/connect";
 import {log} from "../log/logger"
 
@@ -65,6 +65,9 @@ export class ConfigBase {
             password: this.getPostgresPassword(),
             logging: function(sql) {
                 log.info(sql);
+            },
+            operatorsAliases:{
+                "gt": Op.gt
             }
 
         };

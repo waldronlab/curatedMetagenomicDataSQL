@@ -9,6 +9,8 @@ app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json());
 
 
+
+
 //1.引入模块化之后的路由序偶
 const query=require("./router/query")
 const append=require("./router/append")

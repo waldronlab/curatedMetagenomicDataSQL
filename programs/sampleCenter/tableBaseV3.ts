@@ -3,6 +3,12 @@ import {tableBaseV1} from "./tableBaseV1";
 import {DataTypes} from "sequelize";
 import {log} from "../log/logger";
 import {check} from "./checkerGenerator/FieldProcess";
+import {Op} from "sequelize";
+
+const operatorsAliases = {
+    "gt": Op.gt
+};
+
 export class tableBaseV3 extends tableBaseV2 {
     //返回最近新加的样本
     public async last() {
@@ -24,6 +30,7 @@ export class tableBaseV3 extends tableBaseV2 {
         delete objJson["id"];
         delete objJson["createdAt"];
         delete objJson["updatedAt"];
+
         //2.插入数据库
         if (!await this.insert(objJson)){
             log.error(JSON.stringify(this.errorObject));
