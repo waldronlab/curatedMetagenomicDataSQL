@@ -67,7 +67,11 @@ export class ConfigBase {
                 log.info(sql);
             },
             operatorsAliases:{
-                "gt": Op.gt
+                "gt": Op.gt,
+                "lt": Op.lt,
+                "gte":Op.gte,
+                "lte":Op.lte,
+                "ne":Op.ne
             }
 
         };
