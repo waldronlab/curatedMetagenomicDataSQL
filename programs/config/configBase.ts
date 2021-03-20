@@ -71,7 +71,9 @@ export class ConfigBase {
                 "lt": Op.lt,
                 "gte":Op.gte,
                 "lte":Op.lte,
-                "ne":Op.ne
+                "ne":Op.ne,
+                "and":Op.and,
+                "or":Op.or
             }
 
         };

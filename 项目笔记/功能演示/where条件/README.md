@@ -245,3 +245,172 @@
 "ne":不等于
 ```
 
+# 或条件
+
+## 我们先删除所有样本
+
+## 然后添加三个样本，年龄分别为10，15，20岁
+
+### 15岁样本
+
+```json
+{
+  "BMI": "31.0",
+  "age": 15,
+  "tnm": "t1n0m0",
+  "PMID": "25432777",
+  "ajcc": "i",
+  "fobt": "no",
+  "gender": "male",
+  "country": "FRA",
+  "curator": [
+    "Paolo_Manghi"
+  ],
+  "disease": [
+    "CRC"
+  ],
+  "sampleID": "CCIS91228662ST-4-0",
+  "body_site": "stool",
+  "subjectID": "FR-275",
+  "age_category": "adult",
+  "number_bases": "8027807010",
+  "number_reads": "94076829",
+  "NCBI_accession": [
+    "ERR479389",
+    "ERR479390",
+    "ERR480885",
+    "ERR480886"
+  ],
+  "disease_subtype": "carcinoma",
+  "non_westernized": "no",
+  "study_condition": "CRC",
+  "DNA_extraction_kit": "Gnome",
+  "median_read_length": "92",
+  "minimum_read_length": "45",
+  "sequencing_platform": "IlluminaHiSeq",
+  "antibiotics_current_use": "NA"
+}
+```
+
+### 10岁样本
+
+```json
+{
+  "BMI": "31.0",
+  "age": 10,
+  "tnm": "t1n0m0",
+  "PMID": "25432777",
+  "ajcc": "i",
+  "fobt": "no",
+  "gender": "male",
+  "country": "FRA",
+  "curator": [
+    "Paolo_Manghi"
+  ],
+  "disease": [
+    "CRC"
+  ],
+  "sampleID": "CCIS91228662ST-4-010",
+  "body_site": "stool",
+  "subjectID": "FR-275",
+  "age_category": "adult",
+  "number_bases": "8027807010",
+  "number_reads": "94076829",
+  "NCBI_accession": [
+    "ERR479389",
+    "ERR479390",
+    "ERR480886"
+  ],
+  "disease_subtype": "carcinoma",
+  "non_westernized": "no",
+  "study_condition": "CRC",
+  "DNA_extraction_kit": "Gnome",
+  "median_read_length": "92",
+  "minimum_read_length": "45",
+  "sequencing_platform": "IlluminaHiSeq",
+  "antibiotics_current_use": "NA"
+}
+```
+
+### 20岁样本
+
+```json
+{
+  "BMI": "31.0",
+  "age": 20,
+  "tnm": "t1n0m0",
+  "PMID": "25432777",
+  "ajcc": "i",
+  "fobt": "no",
+  "gender": "male",
+  "country": "FRA",
+  "curator": [
+    "Paolo_Manghi"
+  ],
+  "disease": [
+    "CRC"
+  ],
+  "sampleID": "CCIS91228662ST-4-020",
+  "body_site": "stool",
+  "subjectID": "FR-275",
+  "age_category": "adult",
+  "number_bases": "8027807010",
+  "number_reads": "94076829",
+  "NCBI_accession": [
+    "ERR479389",
+    "ERR480886"
+  ],
+  "disease_subtype": "carcinoma",
+  "non_westernized": "no",
+  "study_condition": "CRC",
+  "DNA_extraction_kit": "Gnome",
+  "median_read_length": "92",
+  "minimum_read_length": "45",
+  "sequencing_platform": "IlluminaHiSeq",
+  "antibiotics_current_use": "NA"
+}
+```
+
+## 删除
+
+### 条件
+
+```json
+{
+  "or":[
+    {
+      "age": {
+        "gt": 16
+      }
+    },
+    {
+      "age": {
+        "lt": 14
+      }
+    }
+  ]
+}
+```
+
+### 结果
+
+```json
+{
+  "success": true,
+  "count": 2
+}
+```
+
+### 结论
+
+大于16岁，或者小于14岁的都被删除掉了。
+
+只剩下15岁的了。
+
+### 注意
+
+或这个算子的值应该是一个数组，数组中的每个元素都是一个条件。
+
+并且，或"or"算子可以换成与算子。
+
+默认的情况下，算子之间用与连接。
