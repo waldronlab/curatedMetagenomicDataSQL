@@ -5,10 +5,6 @@ import {log} from "../log/logger";
 import {check} from "./checkerGenerator/FieldProcess";
 import {Op} from "sequelize";
 
-const operatorsAliases = {
-    "gt": Op.gt
-};
-
 export class tableBaseV3 extends tableBaseV2 {
     //返回最近新加的样本
     public async last() {
@@ -56,6 +52,15 @@ export class tableBaseV3 extends tableBaseV2 {
         let dt=await this.defineTable();
         let result:boolean=true;
         let where={data:objJson};
+        // where=objJson;
+        // where={
+        //     "data": {
+        //         "disease": {
+        //             "contains": [
+        //                 "CRC"]
+        //         }
+        //     }
+        // };
         try {
             let samples=await dt.findAll({where:where});
             let list=[];
@@ -65,8 +70,8 @@ export class tableBaseV3 extends tableBaseV2 {
             this.errorObject = {success:true,count:list.length,samples:list};
             return true;
         } catch (e) {
-            return false;
             this.errorObject = {success:false,cause:e};
+            return false;
         }
     }
 }

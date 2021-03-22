@@ -73,7 +73,11 @@ export class ConfigBase {
                 "lte":Op.lte,
                 "ne":Op.ne,
                 "and":Op.and,
-                "or":Op.or
+                "or":Op.or,
+                "in":Op.in,
+                "contains":Op.contains,
+                "contained":Op.contained,
+                "like":Op.like
             }
 
         };

@@ -72,7 +72,7 @@ router.post('/where', async function (req, res) {
     }
     else
     {
-        const txt=JSON.stringify(obj.errorObject,["success","cause","message","errors","value","count"]);
+        const txt=JSON.stringify(obj.errorObject,["success","cause","message","errors","value","count","sql"]);
         res.end(txt);
     }
 });

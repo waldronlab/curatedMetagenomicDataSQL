@@ -12,8 +12,8 @@ export class tableBaseV2 extends tableBaseV1 {
     protected async getFields() {
         return {
             data: {
-                //这是最重要的一列,数据类型为JSONB
-                type: DataTypes.JSONB
+                //这是最重要的一列,数据类型为JSON
+                type: DataTypes.JSON
                 //这一列不允许为空
                 , allowNull: false
             }

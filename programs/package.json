@@ -17,6 +17,7 @@
     "c": " echo '测试:导入所有研究' &&cd CsvFileProcessor && node importerV3.js",
     "d": " echo '测试:必要字段存在性' &&cd SequelizeDB/check && node requiredCheck.js",
     "e": " echo '测试:sampleID唯一性' &&cd SequelizeDB/check && node uniqueSampleIDCheck.js",
+    "f": " echo '测试:创建样本中心' &&cd sampleCenter && node tableBaseV2.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
