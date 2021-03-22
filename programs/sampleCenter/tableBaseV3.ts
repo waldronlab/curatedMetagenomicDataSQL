@@ -51,4 +51,22 @@ export class tableBaseV3 extends tableBaseV2 {
             this.errorObject = {success:false,cause:e};
         }
     }
+    //检索出满足条件的样本
+    public async querySamples(objJson){
+        let dt=await this.defineTable();
+        let result:boolean=true;
+        let where={data:objJson};
+        try {
+            let samples=await dt.findAll({where:where});
+            let list=[];
+            samples.forEach(function(element){
+                list.push(element.data);
+            });
+            this.errorObject = {success:true,count:list.length,samples:list};
+            return true;
+        } catch (e) {
+            return false;
+            this.errorObject = {success:false,cause:e};
+        }
+    }
 }

@@ -37,7 +37,45 @@ router.get('/last', async function (req, res) {
     }
 });
 
-
+/**
+ * @swagger
+ * /query/where:
+ *   post:
+ *     tags:
+ *       - query
+ *     summary: get samples that meet the conditions
+ *     requestBody:
+ *       description: where conditions
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             example:
+ *               "age":
+ *                 "gt": 0
+ *     produces:
+ *     - application/json
+ *     description: samples that meet the conditions
+ *     responses:
+ *       "200":
+ *         description: 200 is the only code。Success or failure please check member of response body
+ */
+router.post('/where', async function (req, res) {
+    let obj: tableBaseV3 = new tableBaseV3();
+    obj.tableName = "samples";
+    obj.schema = "v1";
+    var suc:boolean=await obj.querySamples(req.body)
+    res.writeHead(200, {'Content-Type': 'application/json'});
+    if (suc) {
+        const txt=JSON.stringify(obj.errorObject);
+        res.end(txt);
+    }
+    else
+    {
+        const txt=JSON.stringify(obj.errorObject,["success","cause","message","errors","value","count"]);
+        res.end(txt);
+    }
+});
 
 //最后部分：是把路由暴露给其它模块的代码
 module.exports=router;
