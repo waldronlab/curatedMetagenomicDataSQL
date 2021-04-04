@@ -1,9 +1,7 @@
-let RE:any = new RegExp("stool|skin|vagina|oralcavity|nasalcavity|lung|milk", "g");
-const mr: RegExpExecArray = RE.exec("stool");
-let result: boolean = (mr != null);
-if (result) {
-    result = (mr.input == mr[0]);
+const max=65535*65535;
+let result=0;
+for(let index=1;index<=max;index++)
+{
+    result=result+1/index/2;
 }
-if (!result) {
-    throw new Error(this.colName + ":" + "stool" + "不匹配" + RE);
-}
+console.log(result)

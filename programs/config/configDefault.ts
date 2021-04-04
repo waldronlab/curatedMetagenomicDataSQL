@@ -1,6 +1,7 @@
 require("./config4Docker")
 require("./config4HFOffice")
 require("./config4HFHome")
+require("./config4WanQuanDocker")
 import {defaultConfig} from "./configBase"
 //单元测试
 if (module === require.main) {
