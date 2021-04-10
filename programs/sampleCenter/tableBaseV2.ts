@@ -96,7 +96,7 @@ async function unitTest() {
     //1.把需要的表创建出来
     let obj: tableBaseV2 = new tableBaseV2();
     obj.tableName = "samples";
-    obj.schema = "v1";
+    obj.schema = "public";
     let dt: any = await obj.createTable();
     //2.得到study列表
     let studies: any = await getStudies();

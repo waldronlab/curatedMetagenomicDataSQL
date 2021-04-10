@@ -67,7 +67,7 @@ export class tableBaseV1 {
 async function unitTest() {
     let obj: tableBaseV1 = new tableBaseV1();
     obj.tableName = "samples";
-    obj.schema = "v1";
+    obj.schema = "public";
     await obj.createTable();
     return true;
 }

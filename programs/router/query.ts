@@ -22,7 +22,7 @@ import {tableBaseV3} from "../sampleCenter/tableBaseV3";
 router.get('/last', async function (req, res) {
     let obj: tableBaseV3 = new tableBaseV3();
     obj.tableName = "samples";
-    obj.schema = "v1";
+    obj.schema = "public";
     var objJson:any=await obj.last();
 
     if (objJson==null)
@@ -63,7 +63,7 @@ router.get('/last', async function (req, res) {
 router.post('/where', async function (req, res) {
     let obj: tableBaseV3 = new tableBaseV3();
     obj.tableName = "samples";
-    obj.schema = "v1";
+    obj.schema = "public";
     var suc:boolean=await obj.querySamples(req.body)
     res.writeHead(200, {'Content-Type': 'application/json'});
     if (suc) {

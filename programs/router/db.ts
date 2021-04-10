@@ -87,7 +87,7 @@ router.get('/recreatetables', async function (req, res) {
     {
         let obj: tableBaseV1 = new tableBaseV3();
         obj.tableName = "samples";
-        obj.schema = "v1";
+        obj.schema = "public";
         await obj.createTable();
         res.end(JSON.stringify({status:"recreate tables successfully!"}));
         return;
