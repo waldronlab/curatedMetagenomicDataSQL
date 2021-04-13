@@ -1,41 +1,43 @@
-import {ConfigBase}  from "./configBase";
-import {log} from "../log/logger";
+import { ConfigBase } from "./configBase";
+import { log } from "../log/logger";
 
 //docker内运行的配置，用于发布产品
 export class ConfigOfDocker extends ConfigBase {
+  //1.这个负责提供连接数据库所必须的主机名
+  protected getPostgresHostName(): string {
+    return (
+      process.env.DB_HOST ||
+      "database-2-instance-1.cjxzpipgg2mq.us-east-1.rds.amazonaws.com"
+    );
+  }
 
-    //1.这个负责提供连接数据库所必须的主机名
-    protected getPostgresHostName(): string {
-        return process.env.DB_HOST || "192.168.142.7";
-    }
+  //2.这个负责提供连接数据库必须的端口号
+  protected getPostgresPort(): number {
+    return 5432;
+  }
 
-    //2.这个负责提供连接数据库必须的端口号
-    protected getPostgresPort(): number {
-        return 5432;
-    }
+  //3.这个负责提供连接数据库必须的用户名
+  protected getPostgresUserName(): string {
+    return process.env.DB_USER || "levi";
+  }
 
-    //3.这个负责提供连接数据库必须的用户名
-    protected getPostgresUserName(): string {
-        return process.env.DB_USER || "postgres";
-    }
+  //4.这个负责提供连接数据库必须的密码
+  protected getPostgresPassword(): string {
+    return process.env.DB_PWD || "Cmgdcuny!";
+  }
 
-    //4.这个负责提供连接数据库必须的密码
-    protected getPostgresPassword(): string {
-        return process.env.DB_PWD || "docker";
-    }
+  //5.这个负责提供链接数据库所必须的库名(因为一台数据库服务器上存在多个数据库)
+  protected getPostgresDatabaseName(): string {
+    return process.env.DB_NAME || "cmgd";
+  }
 
-    //5.这个负责提供链接数据库所必须的库名(因为一台数据库服务器上存在多个数据库)
-    protected getPostgresDatabaseName(): string {
-        return process.env.DB_NAME || "tsv";
-    }
-
-    public getStudiesDir(): string {
-        return "/wanquan/";
-    }
-    //template.csv
-    public getFieldDefineCSV(): string {
-        return "/wanquan/readme";
-    }
+  public getStudiesDir(): string {
+    return "/Users/quanwan/Documents/work/drylab-cmgd/programs";
+  }
+  //template.csv
+  public getFieldDefineCSV(): string {
+    return "/Users/quanwan/Documents/work/drylab-cmgd/programs/index.js";
+  }
 }
 
 //初始化
@@ -43,11 +45,11 @@ new ConfigOfDocker().checkEnv();
 
 //单元测试
 if (module === require.main) {
-    const c: ConfigBase = new ConfigOfDocker()
-    c.show4debug();
-    if (c.checkEnv()) {
-        log.log("这个配置文件符合当前环境");
-    } else {
-        log.error("这个配置文件不符合当前环境");
-    }
+  const c: ConfigBase = new ConfigOfDocker();
+  c.show4debug();
+  if (c.checkEnv()) {
+    log.log("这个配置文件符合当前环境");
+  } else {
+    log.error("这个配置文件不符合当前环境");
+  }
 }
